@@ -1,0 +1,139 @@
+/*
+  Premium detail theme for 수앤수.
+  구조/크기/간격(width/height/padding/margin/display/grid/flex)은 변경하지 않고
+  색상, 테두리, 그림자, 버튼 재질감, 상태칩, hover/focus, PDF/테이블 톤만 변경합니다.
+*/
+
+body.theme-sunset-cafe{
+  --bg:#fbf2ea;
+  --card:#fffdfa;
+  --line:#eedccc;
+  --line-strong:#dfc5af;
+  --text:#5a3f31;
+  --muted:#8e7060;
+  --primary:#c97845;
+  --primary-strong:#a95d2f;
+  --primary-soft:#fff0e3;
+  --success:#6e9967;
+  --success-soft:#edf7ea;
+  --warn:#bd8a35;
+  --warn-soft:#fff3d7;
+  --danger:#ce665d;
+  --danger-soft:#fff0ed;
+  --shadow:0 12px 30px rgba(171,101,52,.10);
+  --shadow-soft:0 5px 16px rgba(171,101,52,.07);
+  background:
+    radial-gradient(circle at 18% 9%, rgba(201,120,69,.13), transparent 32%),
+    linear-gradient(180deg,#fbf2ea,#fff9f3);
+  color:var(--text);
+}
+body.theme-sunset-cafe .app{background:transparent;color:var(--text);}
+body.theme-sunset-cafe .card,
+body.theme-sunset-cafe .right-panel,
+body.theme-sunset-cafe .memo-card,
+body.theme-sunset-cafe .exam-schedule-card,
+body.theme-sunset-cafe .exam-plan-card,
+body.theme-sunset-cafe .settings-card,
+body.theme-sunset-cafe .modal-card{
+  background:#fffdfa;
+  border-color:#eedccc;
+  box-shadow:var(--shadow);
+}
+body.theme-sunset-cafe .table-wrap,
+body.theme-sunset-cafe .lookup-table-wrap,
+body.theme-sunset-cafe .message-table-wrap,
+body.theme-sunset-cafe .folder-tree,
+body.theme-sunset-cafe .pdf-picker-panel,
+body.theme-sunset-cafe .list-box,
+body.theme-sunset-cafe .book-request-body{
+  background:#fffdfa;
+  border-color:#eedccc;
+}
+body.theme-sunset-cafe th,
+body.theme-sunset-cafe .lookup-name-col,
+body.theme-sunset-cafe .message-name-col,
+body.theme-sunset-cafe .exam-track-table thead th,
+body.theme-sunset-cafe .exam-plan-table th,
+body.theme-sunset-cafe .makeup-time-head,
+body.theme-sunset-cafe .makeup-col-head,
+body.theme-sunset-cafe .makeup-count-head{
+  background:#fff2e7;
+  color:#845f49;
+  border-color:#eedccc;
+}
+body.theme-sunset-cafe td,
+body.theme-sunset-cafe .message-table th,
+body.theme-sunset-cafe .message-table td,
+body.theme-sunset-cafe .exam-track-table th,
+body.theme-sunset-cafe .exam-track-table td,
+body.theme-sunset-cafe .exam-plan-table th,
+body.theme-sunset-cafe .exam-plan-table td,
+body.theme-sunset-cafe .makeup-table th,
+body.theme-sunset-cafe .makeup-table td{border-color:#f1e4d7;}
+body.theme-sunset-cafe .main-tab:not(.active),
+body.theme-sunset-cafe .class-tab:not(.active),
+body.theme-sunset-cafe .month-tab:not(.active),
+body.theme-sunset-cafe .exam-subtab:not(.active),
+body.theme-sunset-cafe .makeup-tab:not(.active),
+body.theme-sunset-cafe .settings-subtab:not(.active),
+body.theme-sunset-cafe .btn-soft{
+  background:#fffdfa;
+  color:#704f3d;
+  border-color:#ead6c5;
+  box-shadow:0 2px 8px rgba(171,101,52,.04);
+}
+body.theme-sunset-cafe .main-tab.active,
+body.theme-sunset-cafe .class-tab.active,
+body.theme-sunset-cafe .month-tab.active,
+body.theme-sunset-cafe .exam-subtab.active,
+body.theme-sunset-cafe .makeup-tab.active,
+body.theme-sunset-cafe .settings-subtab.active,
+body.theme-sunset-cafe .btn-primary,
+body.theme-sunset-cafe .btn-save{
+  background:linear-gradient(180deg,#d98b55,#c97845);
+  color:#fff;
+  border-color:#c97845;
+  box-shadow:0 7px 18px rgba(201,120,69,.20);
+}
+body.theme-sunset-cafe .btn-danger{background:#fff7f4;color:#b84f48;border-color:#edc4be;}
+body.theme-sunset-cafe input,
+body.theme-sunset-cafe select,
+body.theme-sunset-cafe textarea,
+body.theme-sunset-cafe .message-input,
+body.theme-sunset-cafe .message-textarea,
+body.theme-sunset-cafe .exam-track-input,
+body.theme-sunset-cafe .exam-plan-field,
+body.theme-sunset-cafe .book-request-input,
+body.theme-sunset-cafe .book-request-comment{
+  background:#fffdfa;
+  color:#5a3f31;
+  border-color:#e6d1be;
+}
+body.theme-sunset-cafe input:focus,
+body.theme-sunset-cafe select:focus,
+body.theme-sunset-cafe textarea:focus{border-color:#d98b55;box-shadow:0 0 0 3px rgba(201,120,69,.13);}
+body.theme-sunset-cafe .toolbar,
+body.theme-sunset-cafe .lookup-toolbar,
+body.theme-sunset-cafe .viewer-toolbar,
+body.theme-sunset-cafe .memo-card-head,
+body.theme-sunset-cafe .pdf-tabs{background:#fff7ef;border-color:#eedccc;}
+body.theme-sunset-cafe .pdf-viewer-stack,
+body.theme-sunset-cafe .pdf-pane{background:#fff3e9;}
+body.theme-sunset-cafe .pdf-tab{background:#fffdfa;color:#704f3d;border-color:#ead6c5;box-shadow:var(--shadow-soft);}
+body.theme-sunset-cafe .pdf-tab.active{background:#c97845;color:#fff;border-color:#c97845;}
+body.theme-sunset-cafe .name-btn{background:#fff3e9;border-color:#e6d1be;color:#5a3f31;}
+body.theme-sunset-cafe .name-btn.checked{background:#edf7ea;color:#5c8056;border-color:#c2d9bc;}
+body.theme-sunset-cafe .name-btn.absent{background:#fff0ed;color:#a64d45;border-color:#edc4be;}
+body.theme-sunset-cafe .name-btn.late,
+body.theme-sunset-cafe .name-btn.alerted{background:#fff3d7;color:#9b701e;border-color:#e3c57d;}
+body.theme-sunset-cafe .name-btn.offday{background:#eee5dc;color:#83756a;border-color:#ded1c5;}
+body.theme-sunset-cafe .book-btn{background:#fff0e3;color:#a95d2f;border-color:#e7c7ad;}
+body.theme-sunset-cafe .book-btn.empty{background:#f1ece6;color:#9b9188;border-color:#e1d6ca;}
+body.theme-sunset-cafe .memo-student-name,
+body.theme-sunset-cafe .todo-date,
+body.theme-sunset-cafe .memo-card-title{color:#c97845 !important;}
+body.theme-sunset-cafe .row-hover-sync td,
+body.theme-sunset-cafe .row-hover-sync .lookup-cell,
+body.theme-sunset-cafe .row-hover-sync .lookup-cell-inner,
+body.theme-sunset-cafe .exam-cell,
+body.theme-sunset-cafe .row-hover-sync .exam-cell-inner{background:#fff4eb !important;}

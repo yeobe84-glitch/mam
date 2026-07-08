@@ -1,0 +1,155 @@
+/*
+  Premium detail theme for 수앤수.
+  구조/크기/간격(width/height/padding/margin/display/grid/flex)은 변경하지 않고
+  색상, 테두리, 그림자, 버튼 재질감, 상태칩, hover/focus, PDF/테이블 톤만 변경합니다.
+*/
+
+body.theme-mac-blue{
+  --bg:#edf5ff;
+  --card:rgba(255,255,255,.82);
+  --card-solid:#ffffff;
+  --line:#d4e4f7;
+  --line-strong:#b9d2ef;
+  --text:#19324f;
+  --muted:#6e829a;
+  --primary:#2f83ff;
+  --primary-strong:#1768da;
+  --primary-soft:#eaf4ff;
+  --success:#2f9b72;
+  --success-soft:#e7f7ef;
+  --warn:#b88224;
+  --warn-soft:#fff5de;
+  --danger:#db625d;
+  --danger-soft:#fff0ef;
+  --shadow:0 18px 44px rgba(47,131,255,.12);
+  --shadow-soft:0 8px 20px rgba(47,131,255,.09);
+  background:
+    radial-gradient(circle at 14% 12%, rgba(47,131,255,.16), transparent 30%),
+    linear-gradient(180deg,#eef6ff 0%,#f8fbff 100%);
+  color:var(--text);
+}
+body.theme-mac-blue .app{background:transparent;color:var(--text);}
+body.theme-mac-blue .card,
+body.theme-mac-blue .right-panel,
+body.theme-mac-blue .memo-card,
+body.theme-mac-blue .exam-schedule-card,
+body.theme-mac-blue .exam-plan-card,
+body.theme-mac-blue .settings-card,
+body.theme-mac-blue .modal-card{
+  background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(247,251,255,.88));
+  border-color:rgba(185,210,239,.9);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(14px);
+}
+body.theme-mac-blue .table-wrap,
+body.theme-mac-blue .lookup-table-wrap,
+body.theme-mac-blue .message-table-wrap,
+body.theme-mac-blue .folder-tree,
+body.theme-mac-blue .pdf-picker-panel,
+body.theme-mac-blue .list-box,
+body.theme-mac-blue .book-request-body{
+  background:rgba(255,255,255,.86);
+  border-color:#d4e4f7;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+}
+body.theme-mac-blue th,
+body.theme-mac-blue .lookup-name-col,
+body.theme-mac-blue .message-name-col,
+body.theme-mac-blue .exam-track-table thead th,
+body.theme-mac-blue .exam-plan-table th,
+body.theme-mac-blue .makeup-time-head,
+body.theme-mac-blue .makeup-col-head,
+body.theme-mac-blue .makeup-count-head{
+  background:linear-gradient(180deg,#f5faff,#eaf4ff);
+  color:#4b6b91;
+  border-color:#d7e7f8;
+}
+body.theme-mac-blue td,
+body.theme-mac-blue .message-table th,
+body.theme-mac-blue .message-table td,
+body.theme-mac-blue .exam-track-table th,
+body.theme-mac-blue .exam-track-table td,
+body.theme-mac-blue .exam-plan-table th,
+body.theme-mac-blue .exam-plan-table td,
+body.theme-mac-blue .makeup-table th,
+body.theme-mac-blue .makeup-table td{border-color:#e3edf9;}
+body.theme-mac-blue .main-tab:not(.active),
+body.theme-mac-blue .class-tab:not(.active),
+body.theme-mac-blue .month-tab:not(.active),
+body.theme-mac-blue .exam-subtab:not(.active),
+body.theme-mac-blue .makeup-tab:not(.active),
+body.theme-mac-blue .settings-subtab:not(.active),
+body.theme-mac-blue .btn-soft{
+  background:linear-gradient(180deg,#ffffff,#f3f8ff);
+  color:#315276;
+  border-color:#cfe1f5;
+  box-shadow:0 2px 8px rgba(47,131,255,.06),inset 0 1px 0 rgba(255,255,255,.9);
+}
+body.theme-mac-blue .main-tab.active,
+body.theme-mac-blue .class-tab.active,
+body.theme-mac-blue .month-tab.active,
+body.theme-mac-blue .exam-subtab.active,
+body.theme-mac-blue .makeup-tab.active,
+body.theme-mac-blue .settings-subtab.active,
+body.theme-mac-blue .btn-primary,
+body.theme-mac-blue .btn-save{
+  background:linear-gradient(180deg,#58a4ff,#2f83ff);
+  color:#ffffff;
+  border-color:#2f83ff;
+  box-shadow:0 8px 20px rgba(47,131,255,.23),inset 0 1px 0 rgba(255,255,255,.35);
+}
+body.theme-mac-blue .btn-danger{background:#fff7f7;color:#c94f4a;border-color:#f0c2c0;}
+body.theme-mac-blue input,
+body.theme-mac-blue select,
+body.theme-mac-blue textarea,
+body.theme-mac-blue .message-input,
+body.theme-mac-blue .message-textarea,
+body.theme-mac-blue .exam-track-input,
+body.theme-mac-blue .exam-plan-field,
+body.theme-mac-blue .book-request-input,
+body.theme-mac-blue .book-request-comment{
+  background:rgba(255,255,255,.92);
+  color:#19324f;
+  border-color:#cfe1f5;
+  box-shadow:inset 0 1px 2px rgba(47,131,255,.04);
+}
+body.theme-mac-blue input:focus,
+body.theme-mac-blue select:focus,
+body.theme-mac-blue textarea:focus,
+body.theme-mac-blue .message-input:focus,
+body.theme-mac-blue .message-textarea:focus,
+body.theme-mac-blue .exam-track-input:focus,
+body.theme-mac-blue .exam-plan-field:focus{
+  border-color:#58a4ff;
+  box-shadow:0 0 0 3px rgba(47,131,255,.15);
+}
+body.theme-mac-blue .toolbar,
+body.theme-mac-blue .lookup-toolbar,
+body.theme-mac-blue .viewer-toolbar,
+body.theme-mac-blue .memo-card-head,
+body.theme-mac-blue .pdf-tabs{
+  background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(242,248,255,.86));
+  border-color:#d4e4f7;
+}
+body.theme-mac-blue .pdf-viewer-stack,
+body.theme-mac-blue .pdf-pane{background:#edf6ff;}
+body.theme-mac-blue .pdf-tab{
+  background:linear-gradient(180deg,#ffffff,#f4f9ff);
+  color:#315276;
+  border-color:#cfe1f5;
+  box-shadow:var(--shadow-soft);
+}
+body.theme-mac-blue .pdf-tab.active{background:linear-gradient(180deg,#58a4ff,#2f83ff);color:#fff;border-color:#2f83ff;}
+body.theme-mac-blue .name-btn{background:#f2f8ff;border-color:#cfe1f5;color:#19324f;}
+body.theme-mac-blue .name-btn.checked{background:#e7f7ef;color:#207852;border-color:#b7dfca;}
+body.theme-mac-blue .name-btn.absent{background:#fff0ef;color:#b84642;border-color:#efc0bd;}
+body.theme-mac-blue .name-btn.late,
+body.theme-mac-blue .name-btn.alerted{background:#fff5de;color:#956913;border-color:#e9cd93;}
+body.theme-mac-blue .name-btn.offday{background:#e8edf3;color:#7a8796;border-color:#d5dde7;}
+body.theme-mac-blue .book-btn{background:#eaf4ff;color:#1768da;border-color:#bdd8f8;}
+body.theme-mac-blue .book-btn.empty{background:#f2f5f8;color:#9ba7b5;border-color:#dce5ef;}
+body.theme-mac-blue .row-hover-sync td,
+body.theme-mac-blue .row-hover-sync .lookup-cell,
+body.theme-mac-blue .row-hover-sync .lookup-cell-inner,
+body.theme-mac-blue .row-hover-sync .exam-cell,
+body.theme-mac-blue .row-hover-sync .exam-cell-inner{background:#eaf4ff !important;}

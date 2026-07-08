@@ -1,0 +1,138 @@
+/*
+  Premium detail theme for 수앤수.
+  구조/크기/간격(width/height/padding/margin/display/grid/flex)은 변경하지 않고
+  색상, 테두리, 그림자, 버튼 재질감, 상태칩, hover/focus, PDF/테이블 톤만 변경합니다.
+*/
+
+body.theme-forest-paper{
+  --bg:#f4f6ef;
+  --card:#fffef8;
+  --line:#dfe6d7;
+  --line-strong:#cbd7c2;
+  --text:#2f4134;
+  --muted:#74806d;
+  --primary:#5d8061;
+  --primary-strong:#486b4c;
+  --primary-soft:#edf4ec;
+  --success:#4f8d5d;
+  --success-soft:#e8f4e8;
+  --warn:#a07b32;
+  --warn-soft:#fff5db;
+  --danger:#b85c55;
+  --danger-soft:#fff0ec;
+  --shadow:0 10px 30px rgba(75,91,63,.09);
+  --shadow-soft:0 4px 14px rgba(75,91,63,.06);
+  background:
+    radial-gradient(circle at 16% 10%, rgba(93,128,97,.11), transparent 34%),
+    linear-gradient(180deg,#f4f6ef,#fbfaf4);
+  color:var(--text);
+}
+body.theme-forest-paper .app{background:transparent;color:var(--text);}
+body.theme-forest-paper .card,
+body.theme-forest-paper .right-panel,
+body.theme-forest-paper .memo-card,
+body.theme-forest-paper .exam-schedule-card,
+body.theme-forest-paper .exam-plan-card,
+body.theme-forest-paper .settings-card,
+body.theme-forest-paper .modal-card{
+  background:#fffef8;
+  border-color:#dfe6d7;
+  box-shadow:var(--shadow);
+}
+body.theme-forest-paper .table-wrap,
+body.theme-forest-paper .lookup-table-wrap,
+body.theme-forest-paper .message-table-wrap,
+body.theme-forest-paper .folder-tree,
+body.theme-forest-paper .pdf-picker-panel,
+body.theme-forest-paper .list-box,
+body.theme-forest-paper .book-request-body{
+  background:#fffef8;
+  border-color:#dfe6d7;
+}
+body.theme-forest-paper th,
+body.theme-forest-paper .lookup-name-col,
+body.theme-forest-paper .message-name-col,
+body.theme-forest-paper .exam-track-table thead th,
+body.theme-forest-paper .exam-plan-table th,
+body.theme-forest-paper .makeup-time-head,
+body.theme-forest-paper .makeup-col-head,
+body.theme-forest-paper .makeup-count-head{
+  background:#eff3e8;
+  color:#5d6e58;
+  border-color:#dfe6d7;
+}
+body.theme-forest-paper td,
+body.theme-forest-paper .message-table th,
+body.theme-forest-paper .message-table td,
+body.theme-forest-paper .exam-track-table th,
+body.theme-forest-paper .exam-track-table td,
+body.theme-forest-paper .exam-plan-table th,
+body.theme-forest-paper .exam-plan-table td,
+body.theme-forest-paper .makeup-table th,
+body.theme-forest-paper .makeup-table td{border-color:#e7ecdf;}
+body.theme-forest-paper .main-tab:not(.active),
+body.theme-forest-paper .class-tab:not(.active),
+body.theme-forest-paper .month-tab:not(.active),
+body.theme-forest-paper .exam-subtab:not(.active),
+body.theme-forest-paper .makeup-tab:not(.active),
+body.theme-forest-paper .settings-subtab:not(.active),
+body.theme-forest-paper .btn-soft{
+  background:#fffef8;
+  color:#435746;
+  border-color:#d8e2d0;
+  box-shadow:0 2px 8px rgba(75,91,63,.04);
+}
+body.theme-forest-paper .main-tab.active,
+body.theme-forest-paper .class-tab.active,
+body.theme-forest-paper .month-tab.active,
+body.theme-forest-paper .exam-subtab.active,
+body.theme-forest-paper .makeup-tab.active,
+body.theme-forest-paper .settings-subtab.active,
+body.theme-forest-paper .btn-primary,
+body.theme-forest-paper .btn-save{
+  background:#5d8061;
+  color:#fff;
+  border-color:#5d8061;
+  box-shadow:0 7px 18px rgba(93,128,97,.18);
+}
+body.theme-forest-paper input,
+body.theme-forest-paper select,
+body.theme-forest-paper textarea,
+body.theme-forest-paper .message-input,
+body.theme-forest-paper .message-textarea,
+body.theme-forest-paper .exam-track-input,
+body.theme-forest-paper .exam-plan-field,
+body.theme-forest-paper .book-request-input,
+body.theme-forest-paper .book-request-comment{
+  background:#fffef8;
+  color:#2f4134;
+  border-color:#d5dfce;
+}
+body.theme-forest-paper input:focus,
+body.theme-forest-paper select:focus,
+body.theme-forest-paper textarea:focus{border-color:#7b9c7e;box-shadow:0 0 0 3px rgba(93,128,97,.12);}
+body.theme-forest-paper .toolbar,
+body.theme-forest-paper .lookup-toolbar,
+body.theme-forest-paper .viewer-toolbar,
+body.theme-forest-paper .memo-card-head,
+body.theme-forest-paper .pdf-tabs{background:#f8f8ef;border-color:#dfe6d7;}
+body.theme-forest-paper .pdf-viewer-stack,
+body.theme-forest-paper .pdf-pane{background:#eff3e8;}
+body.theme-forest-paper .pdf-tab{background:#fffef8;color:#435746;border-color:#d8e2d0;box-shadow:var(--shadow-soft);}
+body.theme-forest-paper .pdf-tab.active{background:#5d8061;color:#fff;border-color:#5d8061;}
+body.theme-forest-paper .name-btn{background:#f0f3ea;border-color:#d5dfce;color:#2f4134;}
+body.theme-forest-paper .name-btn.checked{background:#e8f4e8;color:#3f744b;border-color:#b9d7ba;}
+body.theme-forest-paper .name-btn.absent{background:#fff0ec;color:#9c4943;border-color:#e9c4bd;}
+body.theme-forest-paper .name-btn.late,
+body.theme-forest-paper .name-btn.alerted{background:#fff5db;color:#8c671d;border-color:#e2c988;}
+body.theme-forest-paper .name-btn.offday{background:#e6e9df;color:#777e71;border-color:#d4dacb;}
+body.theme-forest-paper .book-btn{background:#edf4ec;color:#4b714f;border-color:#c7dbc3;}
+body.theme-forest-paper .book-btn.empty{background:#efeee7;color:#9a988f;border-color:#dfddd2;}
+body.theme-forest-paper .memo-student-name,
+body.theme-forest-paper .todo-date,
+body.theme-forest-paper .memo-card-title{color:#5d8061 !important;}
+body.theme-forest-paper .row-hover-sync td,
+body.theme-forest-paper .row-hover-sync .lookup-cell,
+body.theme-forest-paper .row-hover-sync .lookup-cell-inner,
+body.theme-forest-paper .row-hover-sync .exam-cell,
+body.theme-forest-paper .row-hover-sync .exam-cell-inner{background:#edf4ec !important;}

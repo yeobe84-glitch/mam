@@ -1,0 +1,205 @@
+/* notion.css
+   기존 구조/크기/간격을 바꾸지 않는 색감 테마.
+   padding, margin, gap, width, height, display, grid/flex 구조는 건드리지 않습니다.
+*/
+body.theme-notion{
+  --bg:#f7f7f5;
+  --card:#ffffff;
+  --line:#e6e4df;
+  --line-strong:#d6d3cb;
+  --text:#202124;
+  --muted:#6f6a60;
+  --primary:#2f6f4e;
+  --primary-strong:#24583d;
+  --primary-soft:#eef6f1;
+  --success:#2f7d4f;
+  --success-soft:#edf7f0;
+  --warn:#9a6a18;
+  --warn-soft:#fff7e6;
+  --danger:#c2413a;
+  --danger-soft:#fff1f0;
+  --shadow:0 8px 24px rgba(32,33,36,.055);
+  --shadow-soft:0 3px 12px rgba(32,33,36,.045);
+  background:#f7f7f5;
+  color:var(--text);
+}
+body.theme-notion .app{background:#f7f7f5;}
+body.theme-notion .card,
+body.theme-notion .right-panel,
+body.theme-notion .memo-card,
+body.theme-notion .exam-schedule-card,
+body.theme-notion .exam-plan-card,
+body.theme-notion .settings-card,
+body.theme-notion .modal-card{
+  background:#fffefc;
+  border-color:#e6e4df;
+  box-shadow:var(--shadow);
+}
+body.theme-notion .table-wrap,
+body.theme-notion .lookup-table-wrap,
+body.theme-notion .message-table-wrap,
+body.theme-notion .folder-tree,
+body.theme-notion .pdf-picker-panel,
+body.theme-notion .list-box,
+body.theme-notion .book-request-body{
+  background:#fffefc;
+  border-color:#e6e4df;
+}
+body.theme-notion th,
+body.theme-notion .lookup-name-col,
+body.theme-notion .message-name-col,
+body.theme-notion .exam-track-table thead th,
+body.theme-notion .exam-plan-table th,
+body.theme-notion .makeup-time-head,
+body.theme-notion .makeup-col-head,
+body.theme-notion .makeup-count-head{
+  background:#f3f2ee;
+  color:#5f5a52;
+  border-color:#e6e4df;
+}
+body.theme-notion td,
+body.theme-notion .message-table th,
+body.theme-notion .message-table td,
+body.theme-notion .exam-track-table th,
+body.theme-notion .exam-track-table td,
+body.theme-notion .exam-plan-table th,
+body.theme-notion .exam-plan-table td,
+body.theme-notion .makeup-table th,
+body.theme-notion .makeup-table td{
+  border-color:#ebe9e4;
+}
+body.theme-notion .main-tab:not(.active),
+body.theme-notion .class-tab:not(.active),
+body.theme-notion .month-tab:not(.active),
+body.theme-notion .exam-subtab:not(.active),
+body.theme-notion .makeup-tab:not(.active),
+body.theme-notion .settings-subtab:not(.active),
+body.theme-notion .btn-soft{
+  background:#fffefc;
+  color:#4f4a43;
+  border-color:#e1ded7;
+}
+body.theme-notion .main-tab.active,
+body.theme-notion .class-tab.active,
+body.theme-notion .month-tab.active,
+body.theme-notion .exam-subtab.active,
+body.theme-notion .makeup-tab.active,
+body.theme-notion .settings-subtab.active,
+body.theme-notion .btn-primary,
+body.theme-notion .btn-save{
+  background:#2f6f4e;
+  color:#ffffff;
+  border-color:#2f6f4e;
+}
+body.theme-notion .btn-danger{
+  background:#fffefc;
+  color:#c2413a;
+  border-color:#efc8c4;
+}
+body.theme-notion input,
+body.theme-notion select,
+body.theme-notion textarea,
+body.theme-notion .message-input,
+body.theme-notion .message-textarea,
+body.theme-notion .exam-track-input,
+body.theme-notion .exam-plan-field,
+body.theme-notion .book-request-input,
+body.theme-notion .book-request-comment{
+  background:#fffefc;
+  color:#202124;
+  border-color:#ddd9d1;
+}
+body.theme-notion input:focus,
+body.theme-notion select:focus,
+body.theme-notion textarea:focus,
+body.theme-notion .message-input:focus,
+body.theme-notion .message-textarea:focus,
+body.theme-notion .exam-track-input:focus,
+body.theme-notion .exam-plan-field:focus{
+  border-color:#88aa98;
+  box-shadow:0 0 0 3px rgba(47,111,78,.12);
+}
+body.theme-notion .toolbar,
+body.theme-notion .lookup-toolbar,
+body.theme-notion .viewer-toolbar,
+body.theme-notion .memo-card-head,
+body.theme-notion .pdf-tabs{
+  background:#faf9f6;
+  border-color:#e6e4df;
+}
+body.theme-notion .pdf-viewer-stack,
+body.theme-notion .pdf-pane{
+  background:#f3f2ee;
+}
+body.theme-notion .pdf-tab{
+  background:#fffefc;
+  color:#4f4a43;
+  border-color:#e1ded7;
+  box-shadow:var(--shadow-soft);
+}
+body.theme-notion .pdf-tab.active{
+  background:#2f6f4e;
+  color:#ffffff;
+  border-color:#2f6f4e;
+}
+body.theme-notion .name-btn{background:#f3f2ee;border-color:#ddd9d1;color:#202124;}
+body.theme-notion .name-btn.checked{background:#edf7f0;color:#24613c;border-color:#b9d9c4;}
+body.theme-notion .name-btn.absent{background:#fff1f0;color:#9f2f2b;border-color:#efc8c4;}
+body.theme-notion .name-btn.late,
+body.theme-notion .name-btn.alerted{background:#fff7e6;color:#8a5a12;border-color:#ebd09c;}
+body.theme-notion .name-btn.offday{background:#e9e7e1;color:#777168;border-color:#d6d3cb;}
+body.theme-notion .book-btn{background:#eef6f1;color:#2f6f4e;border-color:#c7dfd0;}
+body.theme-notion .book-btn.empty{background:#f0efeb;color:#9a958d;border-color:#e1ded7;}
+body.theme-notion .lookup-cell.absent,
+body.theme-notion .exam-cell.low{background:#fff1f0;color:#9f2f2b;}
+body.theme-notion .lookup-cell.homework{background:#fff7e6;color:#8a5a12;}
+body.theme-notion .exam-cell.full{background:#edf7f0;color:#24613c;}
+body.theme-notion .exam-cell.high{background:#f4f8e8;color:#4f6725;}
+body.theme-notion .exam-cell.na,
+body.theme-notion .lookup-cell.offday,
+body.theme-notion .lookup-name-cell.offday{background:#e9e7e1;color:#777168;}
+body.theme-notion .memo-item,
+body.theme-notion .todo-item,
+body.theme-notion .memo-month-group,
+body.theme-notion .todo-month-group,
+body.theme-notion .list-item,
+body.theme-notion .settings-class-card,
+body.theme-notion .settings-student-card{
+  background:#fffefc !important;
+  border-color:#e6e4df !important;
+}
+body.theme-notion .memo-student-name,
+body.theme-notion .todo-date,
+body.theme-notion .memo-card-title{
+  color:#2f6f4e !important;
+}
+body.theme-notion .memo-drawer,
+body.theme-notion .memo-popover{
+  background:#fffefc !important;
+  border-color:#c7dfd0 !important;
+  box-shadow:0 16px 34px rgba(32,33,36,.12) !important;
+}
+body.theme-notion .memo-drawer-head{
+  background:#eef6f1 !important;
+  border-color:#c7dfd0 !important;
+  color:#24583d !important;
+}
+body.theme-notion .alert-card,
+body.theme-notion .todo-alert-card{
+  background:#fff1f0 !important;
+  border-color:#efc8c4 !important;
+  color:#9f2f2b !important;
+}
+body.theme-notion .alert-card .name,
+body.theme-notion .alert-card .time,
+body.theme-notion .todo-alert-card .name,
+body.theme-notion .todo-alert-card .time{
+  color:#9f2f2b !important;
+}
+body.theme-notion .row-hover-sync td,
+body.theme-notion .row-hover-sync .lookup-cell,
+body.theme-notion .row-hover-sync .lookup-cell-inner,
+body.theme-notion .row-hover-sync .exam-cell,
+body.theme-notion .row-hover-sync .exam-cell-inner{
+  background:#f0f6f2 !important;
+}

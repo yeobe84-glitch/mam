@@ -1,0 +1,140 @@
+/*
+  Premium detail theme for 수앤수.
+  구조/크기/간격(width/height/padding/margin/display/grid/flex)은 변경하지 않고
+  색상, 테두리, 그림자, 버튼 재질감, 상태칩, hover/focus, PDF/테이블 톤만 변경합니다.
+*/
+
+body.theme-graphite-mono{
+  --bg:#1a1b1e;
+  --card:#24262b;
+  --panel:#2a2d33;
+  --panel-2:#30343b;
+  --line:#3a3f48;
+  --line-strong:#4a505c;
+  --text:#f1f3f5;
+  --muted:#a4a9b2;
+  --primary:#d7dbe2;
+  --primary-strong:#ffffff;
+  --primary-soft:#32363d;
+  --success:#b9c9b8;
+  --success-soft:#2c342c;
+  --warn:#d3c7aa;
+  --warn-soft:#383329;
+  --danger:#d8b5b5;
+  --danger-soft:#3a2d2d;
+  --shadow:0 18px 42px rgba(0,0,0,.42);
+  --shadow-soft:0 8px 22px rgba(0,0,0,.30);
+  background:
+    radial-gradient(circle at 18% 8%, rgba(255,255,255,.055), transparent 30%),
+    linear-gradient(180deg,#1a1b1e,#202226);
+  color:var(--text);
+}
+body.theme-graphite-mono .app{background:transparent;color:var(--text);}
+body.theme-graphite-mono .card,
+body.theme-graphite-mono .right-panel,
+body.theme-graphite-mono .memo-card,
+body.theme-graphite-mono .exam-schedule-card,
+body.theme-graphite-mono .exam-plan-card,
+body.theme-graphite-mono .settings-card,
+body.theme-graphite-mono .modal-card{
+  background:linear-gradient(180deg,#292c32,#24262b);
+  border-color:#3a3f48;
+  box-shadow:var(--shadow);
+}
+body.theme-graphite-mono .table-wrap,
+body.theme-graphite-mono .lookup-table-wrap,
+body.theme-graphite-mono .message-table-wrap,
+body.theme-graphite-mono .folder-tree,
+body.theme-graphite-mono .pdf-picker-panel,
+body.theme-graphite-mono .list-box,
+body.theme-graphite-mono .book-request-body{
+  background:#22252a;
+  border-color:#3a3f48;
+}
+body.theme-graphite-mono th,
+body.theme-graphite-mono .lookup-name-col,
+body.theme-graphite-mono .message-name-col,
+body.theme-graphite-mono .exam-track-table thead th,
+body.theme-graphite-mono .exam-plan-table th,
+body.theme-graphite-mono .makeup-time-head,
+body.theme-graphite-mono .makeup-col-head,
+body.theme-graphite-mono .makeup-count-head{
+  background:linear-gradient(180deg,#333740,#2b2f36);
+  color:#d9dde4;
+  border-color:#444a55;
+}
+body.theme-graphite-mono td,
+body.theme-graphite-mono .message-table th,
+body.theme-graphite-mono .message-table td,
+body.theme-graphite-mono .exam-track-table th,
+body.theme-graphite-mono .exam-track-table td,
+body.theme-graphite-mono .exam-plan-table th,
+body.theme-graphite-mono .exam-plan-table td,
+body.theme-graphite-mono .makeup-table th,
+body.theme-graphite-mono .makeup-table td{border-color:#333842;color:var(--text);}
+body.theme-graphite-mono .main-tab:not(.active),
+body.theme-graphite-mono .class-tab:not(.active),
+body.theme-graphite-mono .month-tab:not(.active),
+body.theme-graphite-mono .exam-subtab:not(.active),
+body.theme-graphite-mono .makeup-tab:not(.active),
+body.theme-graphite-mono .settings-subtab:not(.active),
+body.theme-graphite-mono .btn-soft{
+  background:linear-gradient(180deg,#30343b,#282b31);
+  color:#d9dde4;
+  border-color:#424751;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 2px 8px rgba(0,0,0,.20);
+}
+body.theme-graphite-mono .main-tab.active,
+body.theme-graphite-mono .class-tab.active,
+body.theme-graphite-mono .month-tab.active,
+body.theme-graphite-mono .exam-subtab.active,
+body.theme-graphite-mono .makeup-tab.active,
+body.theme-graphite-mono .settings-subtab.active,
+body.theme-graphite-mono .btn-primary,
+body.theme-graphite-mono .btn-save{
+  background:linear-gradient(180deg,#f0f2f5,#cfd4dc);
+  color:#1a1b1e;
+  border-color:#eef1f5;
+  box-shadow:0 8px 20px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.55);
+}
+body.theme-graphite-mono input,
+body.theme-graphite-mono select,
+body.theme-graphite-mono textarea,
+body.theme-graphite-mono .message-input,
+body.theme-graphite-mono .message-textarea,
+body.theme-graphite-mono .exam-track-input,
+body.theme-graphite-mono .exam-plan-field,
+body.theme-graphite-mono .book-request-input,
+body.theme-graphite-mono .book-request-comment{
+  background:#202328;
+  color:#f1f3f5;
+  border-color:#444a55;
+}
+body.theme-graphite-mono input:focus,
+body.theme-graphite-mono select:focus,
+body.theme-graphite-mono textarea:focus{border-color:#d7dbe2;box-shadow:0 0 0 3px rgba(215,219,226,.12);}
+body.theme-graphite-mono .toolbar,
+body.theme-graphite-mono .lookup-toolbar,
+body.theme-graphite-mono .viewer-toolbar,
+body.theme-graphite-mono .memo-card-head,
+body.theme-graphite-mono .pdf-tabs{background:linear-gradient(180deg,#2e3239,#272a30);border-color:#3a3f48;}
+body.theme-graphite-mono .pdf-viewer-stack,
+body.theme-graphite-mono .pdf-pane{background:#17191c;}
+body.theme-graphite-mono .pdf-tab{background:#30343b;color:#d9dde4;border-color:#424751;box-shadow:var(--shadow-soft);}
+body.theme-graphite-mono .pdf-tab.active{background:#d7dbe2;color:#1a1b1e;border-color:#d7dbe2;}
+body.theme-graphite-mono .name-btn{background:#30343b;border-color:#444a55;color:#f1f3f5;}
+body.theme-graphite-mono .name-btn.checked{background:#2c342c;color:#cce4ca;border-color:#4e624e;}
+body.theme-graphite-mono .name-btn.absent{background:#3a2d2d;color:#efc8c8;border-color:#684c4c;}
+body.theme-graphite-mono .name-btn.late,
+body.theme-graphite-mono .name-btn.alerted{background:#383329;color:#eadab5;border-color:#685b3e;}
+body.theme-graphite-mono .name-btn.offday{background:#26292f;color:#999fa9;border-color:#3f444d;}
+body.theme-graphite-mono .book-btn{background:#32363d;color:#e0e4ea;border-color:#4b515d;}
+body.theme-graphite-mono .book-btn.empty{background:#272a30;color:#7d838c;border-color:#3a3f48;}
+body.theme-graphite-mono .memo-student-name,
+body.theme-graphite-mono .todo-date,
+body.theme-graphite-mono .memo-card-title{color:#e7eaef !important;}
+body.theme-graphite-mono .row-hover-sync td,
+body.theme-graphite-mono .row-hover-sync .lookup-cell,
+body.theme-graphite-mono .row-hover-sync .lookup-cell-inner,
+body.theme-graphite-mono .row-hover-sync .exam-cell,
+body.theme-graphite-mono .row-hover-sync .exam-cell-inner{background:#32363d !important;}
