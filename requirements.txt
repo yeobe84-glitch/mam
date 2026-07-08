@@ -1,1 +1,2 @@
-# No external Python packages are required.
+Flask>=3.0.0
+gunicorn>=22.0.0
