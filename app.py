@@ -30,6 +30,21 @@ SESSION_TTL_SECONDS = 60 * 60 * 24 * 7
 AUTH_PASSWORD = os.environ.get('SANDSU_PASSWORD') or os.environ.get('APP_PASSWORD') or '1234'
 AUTH_SECRET = os.environ.get('SANDSU_SECRET') or os.environ.get('SECRET_KEY') or 'change-this-secret-on-render'
 PUBLIC_PATHS = {'/login', '/api/ping'}
+DEBUG_AUTH = (os.environ.get('SANDSU_DEBUG_AUTH', '1').lower() not in {'0', 'false', 'no', 'off'})
+
+
+def _mask_secret(value):
+    value = '' if value is None else str(value)
+    if not value:
+        return '<empty>'
+    if len(value) <= 2:
+        return '*' * len(value)
+    return value[:2] + '***' + f'({len(value)})'
+
+
+def debug_auth_log(*parts):
+    if DEBUG_AUTH:
+        print('[AUTH]', *parts, flush=True)
 
 
 def _sign_session(value):
@@ -279,11 +294,23 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
     def _is_valid_api_password(self):
         # Program-side API authentication. The desktop app cannot rely on browser cookies,
         # so it sends the Render password in a header. Web access still uses the login cookie.
-        supplied = self.headers.get('X-SANDSU-PASSWORD') or ''
+        header_password = self.headers.get('X-SANDSU-PASSWORD') or ''
         auth = self.headers.get('Authorization') or ''
+        supplied = header_password
+        source = 'X-SANDSU-PASSWORD' if header_password else 'missing'
         if auth.lower().startswith('bearer '):
             supplied = auth[7:].strip()
-        return bool(supplied) and hmac.compare_digest(str(supplied), str(AUTH_PASSWORD))
+            source = 'Authorization Bearer'
+        ok = bool(supplied) and hmac.compare_digest(str(supplied), str(AUTH_PASSWORD))
+        debug_auth_log(
+            self.command,
+            urlparse(self.path).path,
+            'source=' + source,
+            'received=' + _mask_secret(supplied),
+            'expected=' + _mask_secret(AUTH_PASSWORD),
+            'ok=' + str(ok)
+        )
+        return ok
 
     def end_headers(self):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
@@ -395,6 +422,8 @@ window.SANDSU_TENANT = {json.dumps(tenant)};
 
     def do_GET(self):
         clean_path = urlparse(self.path).path.rstrip('/') or '/'
+        if clean_path.startswith('/api/'):
+            debug_auth_log('REQUEST', 'GET', clean_path)
 
         if clean_path == '/login':
             self._send_login_page()
@@ -488,6 +517,8 @@ window.SANDSU_TENANT = {json.dumps(tenant)};
 
     def do_POST(self):
         clean_path = urlparse(self.path).path.rstrip('/') or '/'
+        if clean_path.startswith('/api/'):
+            debug_auth_log('REQUEST', 'POST', clean_path)
 
         if clean_path == '/login':
             try:
