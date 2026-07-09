@@ -185,6 +185,28 @@ def read_tenant_data(tenant):
         return json.load(f)
 
 
+def get_tenant_meta(tenant):
+    ensure_data_dirs()
+    data_file = tenant_data_file(tenant)
+    exists = os.path.exists(data_file)
+    meta = {'exists': exists, 'tenant': tenant, 'version': 0, 'updated_at': '', 'file_mtime': 0}
+    if not exists:
+        return meta
+    try:
+        meta['file_mtime'] = os.path.getmtime(data_file)
+    except Exception:
+        pass
+    try:
+        with open(data_file, 'r', encoding='utf-8') as f:
+            payload = json.load(f)
+        if isinstance(payload, dict):
+            meta['version'] = int(payload.get('version') or 0)
+            meta['updated_at'] = str(payload.get('updated_at') or '')
+    except Exception:
+        pass
+    return meta
+
+
 class ReusableThreadingHTTPServer(ThreadingHTTPServer):
     allow_reuse_address = True
     daemon_threads = True
@@ -354,11 +376,21 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
             return
 
         if not self._is_public_path(clean_path) and not self._is_authenticated():
-            if clean_path.startswith('/api/'):
-                self._send_json(401, {'ok': False, 'error': 'login required'})
-            else:
-                self._redirect_to_login()
-            return
+            # Desktop program APIs can authenticate with X-SANDSU-PASSWORD instead of browser cookie.
+            parts_for_auth = clean_path.strip('/').split('/')
+            program_get_allowed = (
+                len(parts_for_auth) == 3
+                and parts_for_auth[0] == 'api'
+                and parts_for_auth[1] in TENANTS
+                and parts_for_auth[2] in {'load', 'meta', 'ping'}
+                and self._is_valid_api_password()
+            )
+            if not program_get_allowed:
+                if clean_path.startswith('/api/'):
+                    self._send_json(401, {'ok': False, 'error': 'login required'})
+                else:
+                    self._redirect_to_login()
+                return
 
         if clean_path == '/':
             self.send_response(302)
@@ -380,6 +412,9 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
                     self._send_json(200, {'ok': True, 'tenant': tenant, 'data': data})
                 except Exception as e:
                     self._send_json(500, {'ok': False, 'error': str(e)})
+                return
+            if action == 'meta':
+                self._send_json(200, {'ok': True, 'tenant': tenant, 'meta': get_tenant_meta(tenant)})
                 return
             if action == 'ping':
                 self._send_json(200, {'ok': True, 'tenant': tenant, 'target': TARGET})
