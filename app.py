@@ -17,6 +17,7 @@ PORT = int(os.environ.get('PORT', '8027'))
 HOST = '0.0.0.0'
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TARGET = 'sandsu_attendance_ui_exam_message_bookfocus_v59.html'
+ONLINE_TARGET = 'sandsu_online_mobile.html'
 TENANTS = {'yeop', 'yeom', 'yeong'}
 DEFAULT_TENANT = 'yeop'
 # For Render Persistent Disk, set SANDSU_DATA_DIR to the disk mount path, for example /var/data.
@@ -298,6 +299,30 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
         self.end_headers()
         self.wfile.write(body)
 
+
+    def _send_online_html_for_tenant(self, tenant):
+        html_path = os.path.join(ROOT, ONLINE_TARGET)
+        if not os.path.exists(html_path):
+            self.send_error(404, 'Online HTML target not found')
+            return
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html = f.read()
+        patch = f"""
+<script>
+window.SANDSU_TENANT = {json.dumps(tenant)};
+</script>
+"""
+        if '</head>' in html:
+            html = html.replace('</head>', patch + '</head>', 1)
+        else:
+            html = patch + html
+        body = html.encode('utf-8')
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/html; charset=utf-8')
+        self.send_header('Content-Length', str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
     def _send_html_for_tenant(self, tenant):
         html_path = os.path.join(ROOT, TARGET)
         if not os.path.exists(html_path):
@@ -398,8 +423,12 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
             self.end_headers()
             return
 
+        if clean_path.startswith('/legacy/') and clean_path.split('/')[-1] in TENANTS:
+            self._send_html_for_tenant(clean_path.split('/')[-1])
+            return
+
         if clean_path.strip('/') in TENANTS:
-            self._send_html_for_tenant(clean_path.strip('/'))
+            self._send_online_html_for_tenant(clean_path.strip('/'))
             return
 
         # Tenant APIs: /api/yeop/load, /api/yeom/load, /api/yeong/load
