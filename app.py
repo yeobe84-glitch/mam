@@ -253,6 +253,15 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
         self._send_json(401, {'ok': False, 'error': 'login required'})
         return False
 
+    def _is_valid_api_password(self):
+        # Program-side API authentication. The desktop app cannot rely on browser cookies,
+        # so it sends the Render password in a header. Web access still uses the login cookie.
+        supplied = self.headers.get('X-SANDSU-PASSWORD') or ''
+        auth = self.headers.get('Authorization') or ''
+        if auth.lower().startswith('bearer '):
+            supplied = auth[7:].strip()
+        return bool(supplied) and hmac.compare_digest(str(supplied), str(AUTH_PASSWORD))
+
     def end_headers(self):
         self.send_header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
         self.send_header('Pragma', 'no-cache')
@@ -433,12 +442,6 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
                 self._send_login_page(error='1')
             return
 
-        if clean_path.startswith('/api/') and not self._require_auth_for_json():
-            return
-        if not clean_path.startswith('/api/') and not self._is_authenticated():
-            self._redirect_to_login()
-            return
-
         parts = clean_path.strip('/').split('/')
 
         tenant = None
@@ -446,6 +449,15 @@ button{{width:100%;margin-top:14px;border:0;border-radius:12px;background:#11182
             tenant = parts[1]
         elif clean_path == '/api/save':
             tenant = DEFAULT_TENANT
+
+        # /api/{teacher}/save can be called either by the logged-in web page(cookie)
+        # or by the desktop program(X-SANDSU-PASSWORD header). Other APIs still require login.
+        if clean_path.startswith('/api/'):
+            if not (tenant and self._is_valid_api_password()) and not self._require_auth_for_json():
+                return
+        elif not self._is_authenticated():
+            self._redirect_to_login()
+            return
 
         if tenant:
             try:
