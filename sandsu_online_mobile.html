@@ -22,6 +22,11 @@
 </section>
 <main class="main">
   <div class="student-head"><div class="head-row"><div><div class="student-name" id="studentName">학생을 선택하세요</div><div class="student-meta" id="studentMeta"></div></div><div class="score-line" id="scoreLine"></div></div></div>
+  <div class="month-nav" aria-label="조회 월 선택">
+    <button class="btn" id="globalPrevMonth" type="button" aria-label="이전 달">◀</button>
+    <div class="month-title" id="globalMonthTitle"></div>
+    <button class="btn" id="globalNextMonth" type="button" aria-label="다음 달">▶</button>
+  </div>
   <div class="grid" id="contentGrid">
     <section class="card"><h2>달력</h2><div id="calendarBox" class="empty">학생을 선택하면 표시됩니다.</div></section>
     <section class="card"><div class="row space"><h2>메모</h2><button class="btn" id="addMemoBtn">추가</button></div><div id="memoEditor" style="display:none;margin-bottom:10px"><div class="row"><input type="date" id="memoDate"><button class="btn primary" id="saveMemoBtn">저장</button></div><textarea id="memoText" placeholder="메모 내용"></textarea></div><div class="memo-list" id="memoList"></div></section>
@@ -42,7 +47,7 @@ function toast(t){$('toast').textContent=t;$('toast').classList.add('show');setT
 function uid(p){return p+'_'+Math.random().toString(36).slice(2,10)}
 function currentClass(){return (data.classes||[]).find(c=>c.id===selectedClassId) || (data.classes||[])[0]}
 function currentStudent(){const c=currentClass(); return c && (c.students||[]).find(s=>s.id===selectedStudentId && !s.deletedAt)}
-async function load(){const r=await fetch(`/api/${TENANT}/load`); const j=await r.json(); if(!j.ok) throw new Error(j.error||'load failed'); data=j.data||{}; data.classes=data.classes||[]; data.studentMemos=data.studentMemos||[]; data.monthlyMessages=data.monthlyMessages||{}; selectedClassId=(data.classes[0]||{}).id||''; selectedStudentId=((data.classes[0]||{}).students||[]).find(s=>!s.deletedAt)?.id || (((data.classes[0]||{}).students||[])[0]||{}).id || ''; $('status').textContent=TENANT; renderAll();}
+async function load(){const r=await fetch(`/api/${TENANT}/load`); const j=await r.json(); if(!j.ok) throw new Error(j.error||'load failed'); data=j.data||{}; data.classes=data.classes||[]; data.studentMemos=data.studentMemos||[]; data.monthlyMessages=data.monthlyMessages||{}; const firstClass=data.classes.find(c=>(c.students||[]).some(s=>!s.deletedAt))||data.classes[0]||{}; selectedClassId=firstClass.id||''; selectedStudentId=((firstClass.students||[]).find(s=>!s.deletedAt)||{}).id||''; $('status').textContent=TENANT; renderAll();}
 async function save(){if(!data) return; $('status').textContent='저장 중'; const r=await fetch(`/api/${TENANT}/save`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)}); const j=await r.json(); if(!j.ok) throw new Error(j.error||'save failed'); data.version=j.version; data.updated_at=j.updated_at; $('status').textContent='저장됨 '+(j.updated_at||''); toast('저장 완료')}
 function renderAll(){renderClasses();renderStudents();renderStudentContent();}
 function renderClasses(){const box=$('classStrip'); box.innerHTML=''; (data.classes||[]).forEach(c=>{const b=document.createElement('button'); b.className='class-btn '+(c.id===selectedClassId?'active':''); b.textContent=c.name||'반'; b.onclick=()=>{selectedClassId=c.id; selectedStudentId=((c.students||[]).find(s=>!s.deletedAt)||{}).id||''; renderAll()}; box.appendChild(b)})}
@@ -58,7 +63,7 @@ function scoreInfo(record){
   return {text:visible.join(' / '), cls};
 }
 function monthlyExamRecord(classId,studentId,month){return (((data.monthlyExams||{})[classId]||{})[studentId]||{})[month] || null}
-function renderStudentContent(){const s=currentStudent(), c=currentClass(); if(!s){$('studentName').textContent='학생을 선택하세요'; $('studentMeta').textContent=''; $('scoreLine').innerHTML=''; return} $('studentName').textContent=s.name||''; $('studentMeta').textContent=`${(c&&c.name)||''}`; renderMonthNav(); const si=scoreInfo(monthlyExamRecord(c.id,s.id,ym(viewDate))); $('scoreLine').innerHTML=`<span class="score-pill ${si.cls}">평가 ${esc(si.text)}</span>`; renderCalendar(); renderMemos(); renderMessage();}
+function renderStudentContent(){const s=currentStudent(), c=currentClass(); renderMonthNav(); if(!s){$('studentName').textContent='학생을 선택하세요'; $('studentMeta').textContent=''; $('scoreLine').innerHTML=''; $('calendarBox').className='empty'; $('calendarBox').textContent='재원생이 없습니다.'; $('memoList').innerHTML='<div class="empty">재원생이 없습니다.</div>'; $('messageBox').className='message-grid empty'; $('messageBox').textContent='재원생이 없습니다.'; return} $('studentName').textContent=s.name||''; $('studentMeta').textContent=`${(c&&c.name)||''}`; const si=scoreInfo(monthlyExamRecord(c.id,s.id,ym(viewDate))); $('scoreLine').innerHTML=`<span class="score-pill ${si.cls}">평가 ${esc(si.text)}</span>`; renderCalendar(); renderMemos(); renderMessage();}
 
 function renderMonthNav(){const base=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const t=$('globalMonthTitle'); if(t)t.textContent=`${base.getFullYear()}년 ${base.getMonth()+1}월`;}
 function shiftMonth(delta){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth()+delta,1); renderStudentContent();}
@@ -95,7 +100,7 @@ function renderMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c){
 }
 function saveMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c)return; const month=ym(viewDate); const root=getMessageRoot(c.id,s.id); root[month]={progress:$('progress').value,comments:[...document.querySelectorAll('.comment')].map(x=>x.value),message:$('msgText').value,messageStatus:$('msgStatus').value,sentDone:$('msgStatus').value==='sent'}; save().catch(e=>toast('저장 실패: '+e.message));}
 function esc(v){return String(v??'').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
-$('globalPrevMonth').onclick=()=>shiftMonth(-1); $('globalNextMonth').onclick=()=>shiftMonth(1);
+$('globalPrevMonth')?.addEventListener('click',()=>shiftMonth(-1)); $('globalNextMonth')?.addEventListener('click',()=>shiftMonth(1));
 $('addMemoBtn').onclick=()=>{$('memoEditor').style.display=$('memoEditor').style.display==='none'?'block':'none'; $('memoDate').value=ym(viewDate)+'-01';}; $('saveMemoBtn').onclick=()=>{const s=currentStudent(), c=currentClass(); const t=$('memoText').value.trim(); if(!s||!t)return; data.studentMemos.push({id:uid('memo'),classId:c.id,studentId:s.id,date:$('memoDate').value||ymd(new Date()),createdAt:new Date().toISOString(),pinned:false,content:t}); $('memoText').value=''; $('memoEditor').style.display='none'; renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}; $('saveMsgBtn').onclick=saveMessage;
 load().catch(e=>{$('status').textContent='오류'; toast(e.message)});
 })();
