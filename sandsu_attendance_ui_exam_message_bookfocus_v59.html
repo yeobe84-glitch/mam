@@ -2602,6 +2602,9 @@ let backupTimer=null;
 let autoSaveTimer=null;
 let lookupEditTarget=null;
 let examEditTarget=null;
+let lastKnownServerVersion=Number(state?.version||0);
+let serverSyncTimer=null;
+let serverSyncBusy=false;
 
 function cloneData(obj){return typeof structuredClone==='function'?structuredClone(obj):JSON.parse(JSON.stringify(obj));}
 function escapeHtml(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -2644,10 +2647,80 @@ function saveStateToServerSync(payload){
     xhr.send(JSON.stringify(payload));
     if(xhr.status>=200 && xhr.status<300){
       const res=safeParse(xhr.responseText);
-      return !res || res.ok!==false;
+      if(res && res.ok===false) return false;
+      const savedVersion=Number(res?.version||0);
+      if(savedVersion>0){
+        lastKnownServerVersion=savedVersion;
+        state.version=savedVersion;
+        if(res?.updated_at) state.updated_at=String(res.updated_at);
+      }
+      return true;
     }
   }catch(e){}
   return false;
+}
+async function fetchServerMeta(){
+  const res=await fetch('/api/meta?ts='+Date.now(),{cache:'no-store'});
+  if(!res.ok) throw new Error('meta '+res.status);
+  const body=await res.json();
+  return body?.meta||null;
+}
+async function fetchLatestServerState(){
+  const res=await fetch('/api/load?ts='+Date.now(),{cache:'no-store'});
+  if(!res.ok) throw new Error('load '+res.status);
+  const body=await res.json();
+  return body?.ok && body?.data ? body.data : null;
+}
+async function applyLatestServerState(serverData){
+  if(!serverData || typeof serverData!=='object') return false;
+  const currentView=getCurrentViewState();
+  const incoming=cloneData(serverData);
+  if(incoming.__viewState) delete incoming.__viewState;
+  const merged=normalizeParsed(incoming);
+  if(currentView.activeClassId && merged.classes?.some(c=>c.id===currentView.activeClassId)) merged.activeClassId=currentView.activeClassId;
+  if(currentView.selectedBookId!==undefined) merged.selectedBookId=currentView.selectedBookId;
+  if(currentView.pdfMemory && typeof currentView.pdfMemory==='object') merged.pdfMemory={...merged.pdfMemory,...normalizePdfMemoryMap(currentView.pdfMemory)};
+  state=merged;
+  selectedLookupMonth=currentView.selectedLookupMonth||selectedLookupMonth;
+  selectedMessageMonth=currentView.selectedMessageMonth||selectedMessageMonth;
+  selectedMessageStudentId=currentView.selectedMessageStudentId||selectedMessageStudentId;
+  selectedExamYear=currentView.selectedExamYear||selectedExamYear;
+  selectedMakeupTabId=currentView.selectedMakeupTabId||selectedMakeupTabId;
+  openPdfTabs=sanitizeOpenPdfTabs(currentView.openPdfTabs||openPdfTabs||[],state.books||[]);
+  lastKnownServerVersion=Number(state.version||0);
+  isDirty=false;
+  try{
+    const raw=JSON.stringify(makePersistPayload());
+    localStorage.setItem(STORAGE_KEY,raw);
+    localStorage.setItem(BACKUP_KEY,raw);
+    persistViewState();
+  }catch(e){}
+  await renderAll();
+  const now=new Date();
+  updateSaveStatus(`온라인 반영 ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`,'saved');
+  return true;
+}
+async function checkServerForUpdates(){
+  if(serverSyncBusy || isDirty || document.visibilityState==='hidden') return;
+  serverSyncBusy=true;
+  try{
+    const meta=await fetchServerMeta();
+    const remoteVersion=Number(meta?.version||0);
+    if(remoteVersion>lastKnownServerVersion){
+      const latest=await fetchLatestServerState();
+      if(latest) await applyLatestServerState(latest);
+    }
+  }catch(e){
+    // 네트워크가 잠시 끊겨도 기존 로컬 사용은 계속 유지한다.
+  }finally{
+    serverSyncBusy=false;
+  }
+}
+function startServerUpdatePolling(){
+  clearInterval(serverSyncTimer);
+  lastKnownServerVersion=Math.max(lastKnownServerVersion,Number(state?.version||0));
+  serverSyncTimer=setInterval(checkServerForUpdates,2000);
+  setTimeout(checkServerForUpdates,700);
 }
 function normalizeWeekdayArray(value){return Array.from(new Set((Array.isArray(value)?value:[]).map(v=>String(v||'').toLowerCase()).filter(v=>WEEKDAY_KEYS.includes(v))));}
 function normalizeTimeString(value){const str=String(value||'').trim(); if(!str) return ''; const match=str.match(/^(\d{1,2}):(\d{2})$/); if(!match) return ''; const hh=Number(match[1]), mm=Number(match[2]); if(hh<0 || hh>23 || mm<0 || mm>59) return ''; return `${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}`;}
@@ -6889,6 +6962,7 @@ function bindEvents(){
     }
   },300000);
 
+  startServerUpdatePolling();
   window.addEventListener('beforeunload',flushAndBackup);
   window.addEventListener('pagehide',flushAndBackup);
   document.addEventListener('visibilitychange',()=>{

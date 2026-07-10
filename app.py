@@ -368,15 +368,18 @@ window.SANDSU_TENANT = {json.dumps(tenant)};
     if (inputUrl === '/api/load') return '/api/{tenant}/load';
     if (inputUrl === '/api/save') return '/api/{tenant}/save';
     if (inputUrl === '/api/ping') return '/api/{tenant}/ping';
+    if (inputUrl === '/api/meta') return '/api/{tenant}/meta';
     if (inputUrl.startsWith('/api/load?')) return inputUrl.replace('/api/load?', '/api/{tenant}/load?');
     if (inputUrl.startsWith('/api/save?')) return inputUrl.replace('/api/save?', '/api/{tenant}/save?');
     if (inputUrl.startsWith('/api/ping?')) return inputUrl.replace('/api/ping?', '/api/{tenant}/ping?');
+    if (inputUrl.startsWith('/api/meta?')) return inputUrl.replace('/api/meta?', '/api/{tenant}/meta?');
     try {{
       const u = new URL(inputUrl, window.location.origin);
       if (u.origin === window.location.origin) {{
         if (u.pathname === '/api/load') u.pathname = '/api/{tenant}/load';
         else if (u.pathname === '/api/save') u.pathname = '/api/{tenant}/save';
         else if (u.pathname === '/api/ping') u.pathname = '/api/{tenant}/ping';
+        else if (u.pathname === '/api/meta') u.pathname = '/api/{tenant}/meta';
         return u.pathname + u.search + u.hash;
       }}
     }} catch (e) {{}}
@@ -484,6 +487,10 @@ window.SANDSU_TENANT = {json.dumps(tenant)};
                 self._send_json(200, {'ok': True, 'tenant': DEFAULT_TENANT, 'data': read_tenant_data(DEFAULT_TENANT)})
             except Exception as e:
                 self._send_json(500, {'ok': False, 'error': str(e)})
+            return
+
+        if clean_path == '/api/meta':
+            self._send_json(200, {'ok': True, 'tenant': DEFAULT_TENANT, 'meta': get_tenant_meta(DEFAULT_TENANT)})
             return
 
         if clean_path == '/api/themes':
