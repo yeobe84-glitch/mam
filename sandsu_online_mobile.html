@@ -40,6 +40,57 @@
   .card{height:calc(100vh - 132px)!important}
 }
 </style>
+
+<style id="local-student-tab-exact-v21">
+@media (min-width:768px){
+  :root{--bg:#eef2f7;--card:#fff;--line:#d8e0ea;--text:#0f172a;--primary-soft:#eff6ff;--primary-strong:#2563eb}
+  body{background:var(--bg)}
+  .top{display:none!important}
+  .picker{position:sticky!important;top:0!important;z-index:30!important;background:#fff!important;border-bottom:1px solid var(--line)!important;padding:6px 10px!important;box-shadow:0 2px 8px rgba(15,23,42,.04)!important}
+  .class-row{padding:0!important;gap:7px!important;border:0!important}
+  .class-strip{gap:5px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
+  .class-btn,.student-btn{height:28px!important;min-height:28px!important;padding:0 10px!important;border:1px solid var(--line)!important;border-radius:9px!important;background:#fff!important;color:#334155!important;font-size:12px!important;font-weight:900!important;line-height:1!important;box-shadow:none!important}
+  .class-btn.active,.student-btn.active{background:#dbeafe!important;border-color:#93c5fd!important;color:#1d4ed8!important}
+  .class-memo-btn{height:28px!important;padding:0 12px!important;border-radius:9px!important;font-size:12px!important;box-shadow:none!important}
+  .student-panel{padding:5px 0 0!important}
+  .student-list{display:flex!important;gap:5px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
+  .student-btn{min-width:auto!important;flex:0 0 auto!important}
+  .main{padding:8px 10px 10px!important;height:calc(100vh - 72px)!important;overflow:hidden!important}
+  .student-toolbar{height:50px!important;margin:0 0 8px!important;position:relative!important}
+  .student-head{position:relative!important;top:auto!important;padding:0!important;height:50px!important}
+  .student-head .head-row{height:50px!important;min-height:50px!important;border:1px solid #cfe0ff!important;border-radius:12px!important;background:var(--primary-soft)!important;box-shadow:none!important;padding:7px 12px!important;align-items:center!important}
+  .student-head .head-row>div:first-child{display:flex!important;align-items:baseline!important;gap:8px!important}
+  .student-name{font-size:21px!important;color:var(--text)!important}
+  .student-meta{font-size:12px!important;margin:0!important;color:#64748b!important}
+  .score-pill{border:1px solid #cfe0ff!important;border-radius:10px!important;background:#fff!important;padding:5px 10px!important;font-size:13px!important;box-shadow:none!important}
+  .month-nav{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important;padding:0!important;gap:8px!important;border:0!important;background:transparent!important;box-shadow:none!important;z-index:4!important}
+  .month-title{font-size:16px!important;min-width:110px!important;color:#0f172a!important}
+  .month-nav .btn{height:28px!important;padding:0 9px!important;border-radius:8px!important;font-size:12px!important;background:#fff!important}
+  .message-student-card{height:calc(100% - 58px)!important;min-height:0!important;border:1px solid var(--line)!important;border-radius:14px!important;background:#fff!important;padding:10px!important;box-shadow:0 4px 14px rgba(15,23,42,.05)!important;overflow:hidden!important}
+  .message-card-grid.message-memo-main-grid{height:100%!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)!important;gap:10px!important;min-height:0!important}
+  .message-card-col{min-width:0!important;min-height:0!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
+  .message-card-box{border:1px solid #e3e9f1!important;border-radius:12px!important;background:#fff!important;padding:9px!important;box-shadow:none!important;min-height:0!important;overflow:hidden!important}
+  .message-card-box>label,.message-box-title-row label{display:block!important;font-size:12px!important;font-weight:950!important;color:#334155!important;margin:0 0 7px!important}
+  .message-box-title-row{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:7px!important}
+  .message-box-title-row label{margin:0!important}
+  .message-attendance-box,.message-student-memo-box,.message-compose-box{height:100%!important;display:flex!important;flex-direction:column!important}
+  #calendarBox,#memoList,#messageBox{flex:1 1 auto!important;min-height:0!important;overflow:auto!important}
+  .calendar{gap:3px!important}.dow{height:20px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#f8fafc!important;border-radius:6px!important;font-size:10px!important}
+  .day{min-height:44px!important;border-radius:8px!important;padding:4px!important;box-shadow:none!important}
+  .memo-list{gap:5px!important}.memo-month{border:0!important;border-radius:0!important;overflow:visible!important}.memo-month summary{display:none!important}.memo-month-body{padding:0!important;gap:5px!important}.memo-item{border:1px solid #e5e7eb!important;border-radius:9px!important;padding:7px!important;box-shadow:none!important}.memo-text{-webkit-line-clamp:4!important;font-size:12px!important}
+  .message-grid{display:grid!important;grid-template-rows:auto minmax(0,1fr) auto!important;gap:8px!important;min-height:0!important;overflow:hidden!important}
+  .message-right-inputs{display:flex!important;flex-direction:column!important;gap:6px!important}
+  .message-comment-grid{display:flex!important;flex-direction:column!important;gap:6px!important}
+  .message-input{height:31px!important;border:1px solid var(--line)!important;border-radius:8px!important;padding:0 9px!important;background:#fff!important;font-size:12px!important}
+  .message-copy-local{height:30px!important;width:100%!important}
+  .message-sms-box{display:flex!important;flex-direction:column!important;min-height:0!important;padding:0!important;border:0!important}
+  .message-sms-box label{margin-top:1px!important}
+  .message-result{flex:1 1 auto!important;min-height:120px!important;height:auto!important;resize:none!important;border:1px solid var(--line)!important;border-radius:9px!important;padding:9px!important;background:#fbfdff!important}
+  .message-send-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;margin-top:7px!important}
+  .btn-soft-local{height:28px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 9px;font-size:11px;font-weight:900;color:#334155;cursor:pointer}
+  .status-btn.active{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}.status-btn.sent{background:#dcfce7;border-color:#86efac;color:#166534}
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -59,10 +110,18 @@
       <button class="btn" id="globalNextMonth" type="button" aria-label="다음 달">▶</button>
     </div>
   </div>
-  <div class="grid" id="contentGrid">
-    <section class="card"><h2>달력</h2><div id="calendarBox" class="empty">학생을 선택하면 표시됩니다.</div></section>
-    <section class="card"><div class="row space"><h2>메모</h2><button class="btn" id="addMemoBtn">추가</button></div><div id="memoEditor" style="display:none;margin-bottom:10px"><div class="row"><input type="date" id="memoDate"><button class="btn primary" id="saveMemoBtn">저장</button></div><textarea id="memoText" placeholder="메모 내용"></textarea></div><div class="memo-list" id="memoList"></div></section>
-    <section class="card"><div class="row space"><h2>문자</h2><button class="btn" id="copyMsgBtn" type="button">내용복사</button></div><div id="messageBox" class="message-grid empty">학생을 선택하면 표시됩니다.</div></section>
+  <div class="message-student-card" id="contentGrid">
+    <div class="message-card-grid message-memo-main-grid">
+      <div class="message-card-col message-card-att-col">
+        <div class="message-card-box message-attendance-box"><label>출결</label><div id="calendarBox" class="empty">학생을 선택하면 표시됩니다.</div></div>
+      </div>
+      <div class="message-card-col message-card-memo-col">
+        <div class="message-card-box message-student-memo-box"><div class="message-box-title-row"><label>학생메모</label><button class="btn-soft-local" id="addMemoBtn" type="button">추가</button></div><div id="memoEditor" style="display:none;margin-bottom:8px"><div class="row"><input type="date" id="memoDate"><button class="btn primary" id="saveMemoBtn">저장</button></div><textarea id="memoText" placeholder="메모 내용"></textarea></div><div class="memo-list" id="memoList"></div></div>
+      </div>
+      <div class="message-card-col message-card-text-col">
+        <div class="message-card-box message-compose-box"><label>진도 / 코멘트</label><div id="messageBox" class="message-grid empty">학생을 선택하면 표시됩니다.</div></div>
+      </div>
+    </div>
   </div>
 </main>
 </div>
@@ -144,7 +203,7 @@ function getStudentMessageMonths(c,s){
 function getMessageRoot(classId,studentId){data.monthlyMessages=data.monthlyMessages||{}; data.todos=Array.isArray(data.todos)?data.todos:[]; data.classMemos=(data.classMemos&&typeof data.classMemos==='object')?data.classMemos:{}; data.quickMemoPad=String(data.quickMemoPad||''); data.monthlyMessages[classId]=data.monthlyMessages[classId]||{}; data.monthlyMessages[classId][studentId]=data.monthlyMessages[classId][studentId]||{}; return data.monthlyMessages[classId][studentId];}
 function pickMessageMonth(c,s){const cur=ym(viewDate); if(findMessageRecord(c,s,cur)) return cur; const months=getStudentMessageMonths(c,s); return months[0]||cur;}
 let messageSaveTimer=null, drawerSaveTimer=null;
-function renderMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c){$('messageBox').className='message-grid empty';$('messageBox').textContent='학생을 선택하면 표시됩니다.';return} const month=ym(viewDate); const found=findMessageRecord(c,s,month); const rec=normalizeMessageRec(found?.record||{}); let html=`<div class="small">${month} 문자</div><input id="progress" placeholder="진도" value="${esc(rec.progress||'')}">`; for(let i=0;i<5;i++) html+=`<textarea class="comment" rows="2" data-i="${i}" placeholder="코멘트 ${i+1}">${esc((rec.comments||[])[i]||'')}</textarea>`; html+=`<textarea id="msgText" placeholder="문자 내용">${esc(rec.message||'')}</textarea><select id="msgStatus"><option value="">상태 없음</option><option value="draft">작성</option><option value="sent">전송</option></select>`; $('messageBox').className='message-grid'; $('messageBox').innerHTML=html; $('msgStatus').value=rec.messageStatus||''; $('messageBox').querySelectorAll('input,textarea,select').forEach(el=>{el.addEventListener(el.tagName==='SELECT'?'change':'input',queueMessageSave)});
+function renderMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c){$('messageBox').className='message-grid empty';$('messageBox').textContent='학생을 선택하면 표시됩니다.';return} const month=ym(viewDate); const found=findMessageRecord(c,s,month); const rec=normalizeMessageRec(found?.record||{}); let html=`<div class="message-right-inputs"><input class="message-input" id="progress" placeholder="진도 입력" value="${esc(rec.progress||'')}"><div class="message-comment-grid">`; for(let i=0;i<5;i++) html+=`<input class="message-input comment" data-i="${i}" placeholder="코멘트 ${i+1}" value="${esc((rec.comments||[])[i]||'')}">`; html+=`</div><button class="btn-soft-local message-copy-local" id="copyMsgBtn" type="button">내용복사</button></div><div class="message-card-box message-sms-box"><label>문자내용</label><textarea class="message-result" id="msgText" placeholder="문자 내용을 입력">${esc(rec.message||'')}</textarea><div class="message-send-actions"><button class="btn-soft-local status-btn ${rec.messageStatus==='draft'?'active':''}" data-status="draft" type="button">작성</button><button class="btn-soft-local status-btn ${rec.messageStatus==='sent'?'active sent':''}" data-status="sent" type="button">전송</button></div></div><select id="msgStatus" hidden><option value=""></option><option value="draft">작성</option><option value="sent">전송</option></select>`; $('messageBox').className='message-grid'; $('messageBox').innerHTML=html; $('msgStatus').value=rec.messageStatus||''; $('messageBox').querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',queueMessageSave)); $('copyMsgBtn')?.addEventListener('click',copyMessageContent); $('messageBox').querySelectorAll('.status-btn').forEach(btn=>btn.onclick=()=>{const next=$('msgStatus').value===btn.dataset.status?'':btn.dataset.status;$('msgStatus').value=next;queueMessageSave();renderMessage();});
 }
 function captureMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c||!$('progress'))return; const month=ym(viewDate); const root=getMessageRoot(c.id,s.id); root[month]={progress:$('progress').value,comments:[...$('messageBox').querySelectorAll('.comment')].map(x=>x.value),message:$('msgText').value,messageStatus:$('msgStatus').value,sentDone:$('msgStatus').value==='sent'};}
 function queueMessageSave(){captureMessage(); clearTimeout(messageSaveTimer); messageSaveTimer=setTimeout(()=>save().catch(e=>toast('저장 실패: '+e.message)),500)}
@@ -161,7 +220,7 @@ function saveDrawerQuick(){const text=$('drawerQuickText').value.trim();if(!text
 
 function esc(v){return String(v??'').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 $('globalPrevMonth')?.addEventListener('click',()=>shiftMonth(-1)); $('globalNextMonth')?.addEventListener('click',()=>shiftMonth(1));
-$('addMemoBtn').onclick=()=>{$('memoEditor').style.display=$('memoEditor').style.display==='none'?'block':'none'; $('memoDate').value=ym(viewDate)+'-01';}; $('saveMemoBtn').onclick=()=>{const s=currentStudent(), c=currentClass(); const t=$('memoText').value.trim(); if(!s||!t)return; data.studentMemos.push({id:uid('memo'),classId:c.id,studentId:s.id,date:$('memoDate').value||ymd(new Date()),createdAt:new Date().toISOString(),pinned:false,content:t}); $('memoText').value=''; $('memoEditor').style.display='none'; renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}; $('copyMsgBtn').onclick=copyMessageContent; $('openMemoDrawerBtn').onclick=openMemoDrawer; $('closeMemoDrawerBtn').onclick=closeMemoDrawer; $('memoOverlay').onclick=closeMemoDrawer; $('drawerQuickSave').onclick=saveDrawerQuick; $('drawerToggleDone').onclick=()=>{$('drawerToggleDone').dataset.hideDone=$('drawerToggleDone').dataset.hideDone==='0'?'1':'0';renderMemoDrawer()}; $('drawerClassMemo').addEventListener('input',e=>{const c=currentClass();if(!c)return;data.classMemos=data.classMemos||{};if(e.target.value.trim())data.classMemos[c.id]=e.target.value;else delete data.classMemos[c.id];queueDrawerSave()}); $('drawerMemoPad').addEventListener('input',e=>{data.quickMemoPad=e.target.value;queueDrawerSave()});
+$('addMemoBtn').onclick=()=>{$('memoEditor').style.display=$('memoEditor').style.display==='none'?'block':'none'; $('memoDate').value=ym(viewDate)+'-01';}; $('saveMemoBtn').onclick=()=>{const s=currentStudent(), c=currentClass(); const t=$('memoText').value.trim(); if(!s||!t)return; data.studentMemos.push({id:uid('memo'),classId:c.id,studentId:s.id,date:$('memoDate').value||ymd(new Date()),createdAt:new Date().toISOString(),pinned:false,content:t}); $('memoText').value=''; $('memoEditor').style.display='none'; renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}; $('openMemoDrawerBtn').onclick=openMemoDrawer; $('closeMemoDrawerBtn').onclick=closeMemoDrawer; $('memoOverlay').onclick=closeMemoDrawer; $('drawerQuickSave').onclick=saveDrawerQuick; $('drawerToggleDone').onclick=()=>{$('drawerToggleDone').dataset.hideDone=$('drawerToggleDone').dataset.hideDone==='0'?'1':'0';renderMemoDrawer()}; $('drawerClassMemo').addEventListener('input',e=>{const c=currentClass();if(!c)return;data.classMemos=data.classMemos||{};if(e.target.value.trim())data.classMemos[c.id]=e.target.value;else delete data.classMemos[c.id];queueDrawerSave()}); $('drawerMemoPad').addEventListener('input',e=>{data.quickMemoPad=e.target.value;queueDrawerSave()});
 load().then(()=>setInterval(pollServerChanges,2000)).catch(e=>{$('status').textContent='오류'; toast(e.message)});
 })();
 </script>
