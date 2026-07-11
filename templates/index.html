@@ -19,6 +19,7 @@
       <select id="monthSelect" class="select"></select>
     </div>
     <div class="toolbar-right">
+      <span class="meta" id="syncStatus">서버 연결 중</span>
       <span class="meta" id="monthMeta"></span>
       <button class="btn success" id="saveBtn">저장</button>
     </div>
@@ -51,7 +52,7 @@ const seed={classes:[{id:'c1',name:'초등',students:[{id:'s1',name:'김학생'}
 let db=structuredClone(seed),month=new Date().getMonth()+1,year=new Date().getFullYear(),classId='',studentId='';
 
 function cacheLoad(){try{return Object.assign(structuredClone(seed),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return structuredClone(seed)}}
-function setSync(text,bad=false){syncStatus.textContent=text;syncStatus.style.color=bad?'#dc2626':'#64748b'}
+function setSync(text,bad=false){const el=document.getElementById('syncStatus');if(!el)return;el.textContent=text;el.style.color=bad?'#dc2626':'#64748b'}
 async function api(path,options={}){
   const headers={...(options.headers||{}),'Content-Type':'application/json'};
   if(authToken)headers.Authorization=`Bearer ${authToken}`;
