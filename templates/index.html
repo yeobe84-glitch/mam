@@ -42,7 +42,7 @@
 <script>
 const USER={{ user|tojson }};
 const BASE=`/${USER}`;
-const KEY=`sandsu_student_online_cache_${USER}_v2`;
+const KEY=`sandsu_student_online_cache_${USER}_v4`;
 let authToken=localStorage.getItem(`sandsu_online_token_${USER}`)||'';
 let saveTimer=null;
 let saving=false;
@@ -67,14 +67,25 @@ async function api(path,options={}){
 }
 async function loadRemote(){
   try{
-    const result=await api(`${BASE}/api/data`);
-    db=Object.assign(structuredClone(seed),result.data||{});
+    let result=await api(`${BASE}/api/data`);
+    let remote=result.data||{};
+    const studentCount=(remote.classes||[]).reduce((n,c)=>n+(c.students||[]).length,0);
+    if(USER==='yeop' && ((remote.classes||[]).length<8 || studentCount<50)){
+      setSync('초기 데이터 복구 중');
+      await api(`${BASE}/api/reset`,{method:'POST',body:'{}'});
+      result=await api(`${BASE}/api/data`);
+      remote=result.data||{};
+    }
+    db=Object.assign(structuredClone(seed),remote);
+    if(!Array.isArray(db.classes) || !db.classes.length)throw new Error('서버 데이터에 반 목록이 없습니다.');
     localStorage.setItem(KEY,JSON.stringify(db));
-    setSync('서버 동기화됨');
+    const count=db.classes.reduce((n,c)=>n+(c.students||[]).length,0);
+    setSync(`서버 동기화됨 · ${db.classes.length}개 반 · ${count}명`);
   }catch(err){
-    db=cacheLoad();setSync('오프라인 임시 데이터',true);console.error(err);
+    db=cacheLoad();setSync(`불러오기 실패: ${err.message}`,true);console.error(err);
   }
-  classId=(db.classes.find(c=>c.id===db.activeClassId)?.id)||db.classes[0]?.id||'';studentId=db.classes.find(c=>c.id===classId)?.students?.[0]?.id||'';
+  classId=(db.classes.find(c=>c.id===db.activeClassId)?.id)||db.classes[0]?.id||'';
+  studentId=db.classes.find(c=>c.id===classId)?.students?.[0]?.id||'';
 }
 function save(){
   localStorage.setItem(KEY,JSON.stringify(db));

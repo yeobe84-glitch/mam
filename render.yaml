@@ -8,9 +8,3 @@ services:
     envVars:
       - key: APP_PASSWORD
         sync: false
-      - key: DATA_DIR
-        value: /var/data
-    disk:
-      name: sandsu-data
-      mountPath: /var/data
-      sizeGB: 1
