@@ -39,7 +39,7 @@
   </div>
 </div>
 <button class="floating" id="memoBtn">메모</button>
-<aside class="drawer" id="drawer"><div class="drawer-head"><span>메모 · 할 일</span><button class="btn" id="closeDrawer">닫기</button></div><div class="drawer-body"><div class="section"><h3>할 일 추가</h3><div class="todo-add"><input id="todoDate" class="input" type="date"><textarea id="todoText" class="textarea" placeholder="할 일"></textarea><button class="btn primary" id="addTodo">추가</button></div></div><div class="section"><h3>할 일 목록</h3><div class="todo-list" id="todoList"></div></div><div class="section"><h3>자유 메모</h3><textarea id="pad" class="pad"></textarea></div></div></aside>
+<aside class="drawer" id="drawer"><div class="drawer-head"><span>메모 · 할 일</span><button class="btn" id="closeDrawer">닫기</button></div><div class="drawer-body"><div class="section"><h3>할 일 추가</h3><div class="todo-add"><input id="todoDate" class="input" type="date"><textarea id="todoText" class="textarea" placeholder="할 일"></textarea><button class="btn primary" id="addTodo">추가</button></div></div><div class="section"><h3 style="display:flex;align-items:center;justify-content:space-between"><span>할 일 목록</span><button type="button" class="btn" id="toggleDoneTodos" data-show-done="0">완료 보이기</button></h3><div class="todo-list" id="todoList"></div></div><div class="section"><h3>자유 메모</h3><textarea id="pad" class="pad"></textarea></div></div></aside>
 <script>
 const USER={{ user|tojson }};
 const BASE=`/${USER}`;
@@ -118,8 +118,43 @@ contentCopyBtn.onclick=async()=>{const r=rec();const text=[r.progress&&`진도: 
 buildBtn.onclick=()=>{const r=rec(),s=db.classes.find(c=>c.id===classId)?.students.find(s=>s.id===studentId);r.message=[`${s?.name||'학생'} 학부모님 안녕하세요.`,r.progress&&`진도: ${r.progress}`,...(r.comments||[]).filter(Boolean)].filter(Boolean).join('\n');message.value=r.message;save()};copyBtn.onclick=async()=>{await navigator.clipboard.writeText(message.value);copyBtn.textContent='복사됨';setTimeout(()=>copyBtn.textContent='복사',700)};draftBtn.onclick=()=>{rec().status=rec().status==='draft'?'':'draft';save();setStatus(rec().status)};sentBtn.onclick=()=>{rec().status=rec().status==='sent'?'':'sent';save();setStatus(rec().status)};
 function setStatus(st){message.classList.toggle('status-draft',st==='draft');message.classList.toggle('status-sent',st==='sent');draftBtn.classList.toggle('status-draft',st==='draft');sentBtn.classList.toggle('status-sent',st==='sent')}
 memoBtn.onclick=()=>drawer.classList.add('show');closeDrawer.onclick=()=>drawer.classList.remove('show');pad.oninput=()=>{db.pad=pad.value;save()};
-function renderTodos(){todoList.innerHTML=db.todos.length?db.todos.map((t,i)=>`<div class="todo ${t.done?'done':''}"><input type="checkbox" data-check="${i}" ${t.done?'checked':''}><span>${esc(t.text)}</span><small>${t.date||'날짜 없음'}</small><button class="icon" data-tdel="${i}">×</button></div>`).join(''):'<div class="empty">할 일이 없습니다.</div>'}
-addTodo.onclick=()=>{if(!todoText.value.trim())return;db.todos.unshift({text:todoText.value.trim(),date:todoDate.value,done:false});todoText.value='';save();renderTodos()};todoList.onclick=e=>{if(e.target.dataset.check!==undefined)db.todos[e.target.dataset.check].done=e.target.checked;else if(e.target.dataset.tdel!==undefined)db.todos.splice(e.target.dataset.tdel,1);else return;save();renderTodos()};
+function renderTodos(){
+  const showDone=toggleDoneTodos.dataset.showDone==='1';
+  toggleDoneTodos.textContent=showDone?'완료 숨기기':'완료 보이기';
+  const indexed=db.todos.map((t,i)=>({t,i}));
+  const visible=showDone?indexed:indexed.filter(x=>!x.t.done);
+  todoList.innerHTML=visible.length?visible.map(({t,i})=>`<div class="todo ${t.done?'done':''}"><input type="checkbox" data-check="${i}" ${t.done?'checked':''}><span>${esc(t.text)}</span><small>${t.date||'날짜 없음'}</small><button class="icon" data-tdel="${i}">×</button></div>`).join(''):'<div class="empty">할 일이 없습니다.</div>';
+}
+function addQuickMemo(){
+  const raw=todoText.value.trim();
+  if(!raw)return;
+  let matched=null;
+  for(const c of db.classes||[]){
+    for(const s of c.students||[]){
+      if(raw.startsWith(s.name) && (!matched || s.name.length>matched.student.name.length)) matched={class:c,student:s};
+    }
+  }
+  if(matched){
+    const text=raw.slice(matched.student.name.length).replace(/^[\s:：,，-]+/,'').trim();
+    if(text){
+      const picked=todoDate.value?new Date(todoDate.value+'T00:00:00'):new Date();
+      const y=picked.getFullYear(),m=picked.getMonth()+1,d=picked.getDate();
+      const key=`${matched.student.id}_${y}-${String(m).padStart(2,'0')}`;
+      const r=db.records[key]||(db.records[key]={attendance:{},memos:[],progress:'',score:'',comments:['','','','',''],message:'',status:''});
+      r.memos=r.memos||[];
+      r.memos.unshift({date:`${m}/${d}`,text,pinned:false});
+      if(matched.student.id===studentId && y===year && m===month)renderMemos(r);
+    }
+  }else{
+    db.todos.unshift({text:raw,date:todoDate.value,done:false});
+  }
+  todoText.value='';
+  save();renderTodos();
+}
+addTodo.onclick=addQuickMemo;
+todoText.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addQuickMemo()}});
+toggleDoneTodos.onclick=()=>{toggleDoneTodos.dataset.showDone=toggleDoneTodos.dataset.showDone==='1'?'0':'1';renderTodos()};
+todoList.onclick=e=>{if(e.target.dataset.check!==undefined)db.todos[e.target.dataset.check].done=e.target.checked;else if(e.target.dataset.tdel!==undefined)db.todos.splice(e.target.dataset.tdel,1);else return;save();renderTodos()};
 saveBtn.onclick=()=>{clearTimeout(saveTimer);pushSave()};
 async function start(){await loadRemote();initSelectors();initMonths();renderTodos();pad.value=db.pad||'';render()}
 start();
