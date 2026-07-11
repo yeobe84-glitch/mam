@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>수앤수 - 학생</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--line:#dbe3ea;--text:#0f172a;--muted:#64748b;--primary:#2563eb;--primary2:#1d4ed8;--primary-soft:#eff6ff;--success:#16a34a;--warn:#d97706;--danger:#dc2626;--shadow:0 8px 24px rgba(15,23,42,.06);--radius:16px}
+*{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}button,input,textarea,select{font:inherit}.app{height:100vh;padding:10px 12px;display:flex;flex-direction:column;gap:8px}.toolbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);flex:0 0 auto}.toolbar-center{grid-column:2;display:flex;align-items:center;justify-content:center;gap:8px}.toolbar-right{grid-column:3;display:flex;align-items:center;justify-content:flex-end;gap:8px}.select{height:34px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:#fff;min-width:110px}.btn{height:32px;border-radius:10px;border:1px solid var(--line);background:#fff;padding:0 11px;font-size:12px;font-weight:800;cursor:pointer}.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn.success{background:var(--success);color:#fff;border-color:var(--success)}.meta{font-size:12px;color:var(--muted);white-space:nowrap}.student-card{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;display:flex;flex-direction:column;gap:10px}.student-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--primary-soft);border:1px solid #cfe0ff;border-radius:15px;padding:10px 12px;flex:0 0 auto}.kicker{font-size:11px;font-weight:800;color:var(--primary2);margin-bottom:3px}.student-name{font-size:22px;font-weight:900;letter-spacing:-.03em}.score{min-width:84px;background:#fff;border:1px solid #cfe0ff;border-radius:12px;padding:7px 9px;text-align:center}.score span{display:block;font-size:10px;color:var(--muted);font-weight:800}.score b{font-size:17px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;flex:1;min-height:0}.col{min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px}.box{background:#fff;border:1px solid var(--line);border-radius:15px;padding:10px;min-height:0}.box>label,.box-title{display:block;font-size:12px;font-weight:900;color:#334155;margin-bottom:7px}.attendance{flex:1;display:flex;flex-direction:column;overflow:hidden}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.weekday{height:18px;border-radius:6px;background:#f1f5f9;color:#64748b;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}.day{min-height:72px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;padding:6px 5px;display:flex;flex-direction:column}.day.blank{border-color:transparent;background:transparent}.day.has{background:#f8fbff;border-color:#bfdbfe}.day.absent{background:#fef2f2;border-color:#fecaca}.day.homework{background:#fff7ed;border-color:#fed7aa}.day.off{background:#e5e7eb;border-color:#cbd5e1}.date{font-size:12px;font-weight:900}.daytext{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;line-height:1.25;font-weight:800;white-space:pre-line}.summary{margin-top:auto;padding:16px 8px;min-height:68px;font-size:17px;font-weight:900;display:flex;justify-content:center;gap:18px;align-items:center;background:#f8fbff;border:1px solid #dbeafe;border-radius:12px}.memos{flex:1;display:flex;flex-direction:column;overflow:hidden}.memo-list{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:6px}.memo-item{display:grid;grid-template-columns:44px minmax(0,1fr) 26px 26px;gap:5px;align-items:center;border:1px solid #edf2f7;border-radius:10px;background:#fbfdff;padding:6px}.memo-item.pinned{background:#fff8e8;border-color:#f1d8a8}.memo-date{font-size:11px;font-weight:900;color:var(--primary)}.memo-content{font-size:12px;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.icon{width:24px;height:24px;border:0;border-radius:7px;background:transparent;color:#64748b;cursor:pointer}.icon:hover{background:#f1f5f9}.compose{flex:0 0 auto}.stack{display:flex;flex-direction:column;gap:6px}.input,.textarea{width:100%;border:1px solid var(--line);border-radius:11px;background:#fff;padding:8px 10px;font-size:12px}.input{height:34px}.textarea{resize:none;line-height:1.45}.sms{flex:1;display:flex;flex-direction:column}.sms .textarea{flex:1;min-height:120px}.compose-actions{display:flex;justify-content:flex-end;margin-top:8px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:7px}.status-draft{background:#fef3c7!important;border-color:#fcd34d!important;color:#92400e!important;font-weight:800}.status-sent{background:#dcfce7!important;border-color:#86efac!important;color:#166534!important;font-weight:800}.floating{position:fixed;right:0;top:45%;transform:translateY(-50%);z-index:10;border-radius:12px 0 0 12px;background:#dc2626;color:#fff;border:1px solid #b91c1c;padding:14px 8px;writing-mode:vertical-rl;font-weight:900;cursor:pointer}.drawer{position:fixed;right:0;top:0;width:min(430px,92vw);height:100vh;background:#fff;border-left:1px solid var(--line);z-index:20;display:flex;flex-direction:column;transform:translateX(105%);transition:.22s;box-shadow:-18px 0 40px rgba(15,23,42,.16)}.drawer.show{transform:translateX(0)}.drawer-head{height:52px;padding:0 12px 0 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,var(--primary-soft),#fff);border-bottom:1px solid var(--line);font-weight:900}.drawer-body{flex:1;min-height:0;overflow:auto;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:10px}.section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.section h3{font-size:13px;margin:0 0 8px}.todo-add{display:grid;grid-template-columns:1fr auto;gap:6px}.todo-add textarea{grid-column:1/2;min-height:52px}.todo-add button{grid-column:2/3;grid-row:1/3}.todo-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}.todo{display:grid;grid-template-columns:20px minmax(0,1fr) 72px 24px;gap:7px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:7px 8px;background:#fff}.todo.done{opacity:.55;text-decoration:line-through}.todo small{color:var(--primary);font-weight:900}.pad{width:100%;height:180px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fffef8;resize:vertical}.empty{padding:16px;text-align:center;color:#94a3b8;font-size:12px}@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}.col:last-child{grid-column:1/3}.app{overflow:auto}body{overflow:auto}.student-card{min-height:900px}}@media(max-width:720px){.grid{grid-template-columns:1fr}.col:last-child{grid-column:auto}.toolbar{grid-template-columns:1fr}.toolbar-center,.toolbar-right{grid-column:1}.toolbar-center{flex-wrap:wrap}.toolbar-right{justify-content:center}.student-card{min-height:1500px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="toolbar">
+    <div></div>
+    <div class="toolbar-center">
+      <select id="classSelect" class="select"></select>
+      <select id="studentSelect" class="select"></select>
+      <select id="monthSelect" class="select"></select>
+    </div>
+    <div class="toolbar-right">
+      <span class="meta" id="monthMeta"></span>
+      <button class="btn success" id="saveBtn">저장</button>
+    </div>
+  </div>
+  <div class="student-card">
+    <div class="student-head">
+      <div><div class="kicker" id="studentKicker">학생 기록</div><div class="student-name" id="studentName">학생 선택</div></div>
+    </div>
+    <div class="grid">
+      <div class="col"><div class="box attendance"><label>출결 달력</label><div class="calendar" id="calendar"></div><div class="summary" id="summary"></div></div></div>
+      <div class="col"><div class="box memos"><label>학생 메모</label><div class="memo-list" id="memoList"></div></div></div>
+      <div class="col">
+        <div class="box compose"><label>진도 · 코멘트</label><div class="stack"><input id="progress" class="input" placeholder="진도"><input id="comment1" class="input" placeholder="코멘트 1"><input id="comment2" class="input" placeholder="코멘트 2"><input id="comment3" class="input" placeholder="코멘트 3"><input id="comment4" class="input" placeholder="코멘트 4"><input id="comment5" class="input" placeholder="코멘트 5"></div><div class="compose-actions"><button class="btn" id="contentCopyBtn">내용 복사</button></div></div>
+        <div class="box sms"><label>문자 내용</label><textarea id="message" class="textarea" placeholder="문자 내용을 작성하세요"></textarea><div class="actions"><button class="btn" id="buildBtn">작성</button><button class="btn" id="copyBtn">복사</button><button class="btn" id="draftBtn">작성완료</button><button class="btn" id="sentBtn">전송완료</button></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="floating" id="memoBtn">메모</button>
+<aside class="drawer" id="drawer"><div class="drawer-head"><span>메모 · 할 일</span><button class="btn" id="closeDrawer">닫기</button></div><div class="drawer-body"><div class="section"><h3>할 일 추가</h3><div class="todo-add"><input id="todoDate" class="input" type="date"><textarea id="todoText" class="textarea" placeholder="할 일"></textarea><button class="btn primary" id="addTodo">추가</button></div></div><div class="section"><h3>할 일 목록</h3><div class="todo-list" id="todoList"></div></div><div class="section"><h3>자유 메모</h3><textarea id="pad" class="pad"></textarea></div></div></aside>
+<script>
+const KEY='sandsu_student_online_cache_v1';
+let authToken=localStorage.getItem('sandsu_online_token')||'';
+let saveTimer=null;
+let saving=false;
+let pendingSave=false;
+const seed={classes:[{id:'c1',name:'초등',students:[{id:'s1',name:'김학생'},{id:'s2',name:'이학생'}]},{id:'c2',name:'중등',students:[{id:'s3',name:'박학생'}]}],records:{},todos:[],pad:''};
+let db=structuredClone(seed),month=new Date().getMonth()+1,year=new Date().getFullYear(),classId='',studentId='';
+
+function cacheLoad(){try{return Object.assign(structuredClone(seed),JSON.parse(localStorage.getItem(KEY)||'{}'))}catch{return structuredClone(seed)}}
+function setSync(text,bad=false){syncStatus.textContent=text;syncStatus.style.color=bad?'#dc2626':'#64748b'}
+async function api(path,options={}){
+  const headers={...(options.headers||{}),'Content-Type':'application/json'};
+  if(authToken)headers.Authorization=`Bearer ${authToken}`;
+  const res=await fetch(path,{...options,headers});
+  if(res.status===401){
+    const token=prompt('온라인 프로그램 비밀번호를 입력하세요.');
+    if(token===null)throw new Error('로그인이 취소되었습니다.');
+    authToken=token.trim();localStorage.setItem('sandsu_online_token',authToken);
+    return api(path,options);
+  }
+  if(!res.ok)throw new Error((await res.text())||`HTTP ${res.status}`);
+  return res.json();
+}
+async function loadRemote(){
+  try{
+    const result=await api('/api/data');
+    db=Object.assign(structuredClone(seed),result.data||{});
+    localStorage.setItem(KEY,JSON.stringify(db));
+    setSync('서버 동기화됨');
+  }catch(err){
+    db=cacheLoad();setSync('오프라인 임시 데이터',true);console.error(err);
+  }
+  classId=db.classes[0]?.id||'';studentId=db.classes[0]?.students?.[0]?.id||'';
+}
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(db));
+  document.getElementById('saveBtn').textContent='저장 중';
+  setSync('저장 대기');
+  clearTimeout(saveTimer);saveTimer=setTimeout(pushSave,250);
+}
+async function pushSave(){
+  if(saving){pendingSave=true;return}
+  saving=true;pendingSave=false;
+  try{
+    await api('/api/data',{method:'POST',body:JSON.stringify({data:db})});
+    setSync('서버 저장됨');saveBtn.textContent='저장됨';
+    setTimeout(()=>saveBtn.textContent='저장',700);
+  }catch(err){setSync('서버 저장 실패',true);saveBtn.textContent='다시 저장';console.error(err)}
+  finally{saving=false;if(pendingSave)pushSave()}
+}
+function rec(){const k=`${studentId}_${year}-${String(month).padStart(2,'0')}`;return db.records[k]||(db.records[k]={attendance:{},memos:[],progress:'',score:'',comments:['','','','',''],message:'',status:''})}
+function initSelectors(){classSelect.innerHTML=db.classes.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');classSelect.value=classId;refreshStudents();classSelect.onchange=()=>{classId=classSelect.value;studentId=db.classes.find(c=>c.id===classId)?.students[0]?.id;refreshStudents();render()};studentSelect.onchange=()=>{studentId=studentSelect.value;render()}}
+function refreshStudents(){const c=db.classes.find(c=>c.id===classId);studentSelect.innerHTML=(c?.students||[]).map(s=>`<option value="${s.id}">${s.name}</option>`).join('');studentSelect.value=studentId}
+function initMonths(){monthSelect.innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}월</option>`).join('');monthSelect.value=month;monthSelect.onchange=()=>{month=+monthSelect.value;render()}}
+function render(){const c=db.classes.find(c=>c.id===classId),s=c?.students.find(s=>s.id===studentId),r=rec();monthSelect.value=month;monthMeta.textContent=`${year}년 ${month}월`;studentName.textContent=s?.name||'학생 선택';studentKicker.textContent=c?.name||'';renderCalendar(r);renderMemos(r);progress.value=r.progress||'';[comment1,comment2,comment3,comment4,comment5].forEach((el,i)=>el.value=r.comments?.[i]||'');message.value=r.message||'';setStatus(r.status)}
+function renderCalendar(r){const d0=new Date(year,month-1,1).getDay(),last=new Date(year,month,0).getDate(),weeks=['일','월','화','수','목','금','토'];let html=weeks.map(x=>`<div class="weekday">${x}</div>`).join('');for(let i=0;i<d0;i++)html+='<div class="day blank"></div>';for(let d=1;d<=last;d++){const x=r.attendance[d]||{},cls=['day',x.text?'has':'',x.absent?'absent':'',x.homework?'homework':'',x.off?'off':''].join(' ');html+=`<div class="${cls}" data-day="${d}"><div class="date">${d}</div><div class="daytext">${x.text||''}</div></div>`}calendar.innerHTML=html;calendar.querySelectorAll('.day[data-day]').forEach(el=>el.onclick=()=>editDay(+el.dataset.day,r));const vals=Object.values(r.attendance);summary.innerHTML=`<span>결석 ${vals.filter(x=>x.absent).length}</span><span>숙제 ${vals.filter(x=>x.homework).length}</span>`}
+function editDay(d,r){const old=r.attendance[d]||{};const text=prompt(`${month}/${d} 기록`,old.text||'');if(text===null)return;const flags=prompt('상태 입력: 결석 / 숙제 / 휴무 / 없음',old.absent?'결석':old.homework?'숙제':old.off?'휴무':'없음');r.attendance[d]={text,absent:flags==='결석',homework:flags==='숙제',off:flags==='휴무'};save();render()}
+function renderMemos(r){if(!r.memos.length){memoList.innerHTML='<div class="empty">등록된 메모가 없습니다.</div>';return}memoList.innerHTML=r.memos.map((m,i)=>`<div class="memo-item ${m.pinned?'pinned':''}"><span class="memo-date">${m.date}</span><span class="memo-content">${esc(m.text)}</span><button class="icon" data-pin="${i}">⌖</button><button class="icon" data-del="${i}">×</button></div>`).join('');memoList.onclick=e=>{const p=e.target.dataset.pin,d=e.target.dataset.del;if(p!==undefined){r.memos[p].pinned=!r.memos[p].pinned}else if(d!==undefined){r.memos.splice(d,1)}else return;save();renderMemos(r)}}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+[progress,comment1,comment2,comment3,comment4,comment5,message].forEach(el=>el.oninput=()=>{const r=rec();r.progress=progress.value;r.comments=[comment1.value,comment2.value,comment3.value,comment4.value,comment5.value];r.message=message.value;save()});
+contentCopyBtn.onclick=async()=>{const r=rec();const text=[r.progress&&`진도: ${r.progress}`,...(r.comments||[]).filter(Boolean)].filter(Boolean).join('\n');await navigator.clipboard.writeText(text);contentCopyBtn.textContent='복사됨';setTimeout(()=>contentCopyBtn.textContent='내용 복사',700)};
+buildBtn.onclick=()=>{const r=rec(),s=db.classes.find(c=>c.id===classId)?.students.find(s=>s.id===studentId);r.message=[`${s?.name||'학생'} 학부모님 안녕하세요.`,r.progress&&`진도: ${r.progress}`,...(r.comments||[]).filter(Boolean)].filter(Boolean).join('\n');message.value=r.message;save()};copyBtn.onclick=async()=>{await navigator.clipboard.writeText(message.value);copyBtn.textContent='복사됨';setTimeout(()=>copyBtn.textContent='복사',700)};draftBtn.onclick=()=>{rec().status=rec().status==='draft'?'':'draft';save();setStatus(rec().status)};sentBtn.onclick=()=>{rec().status=rec().status==='sent'?'':'sent';save();setStatus(rec().status)};
+function setStatus(st){message.classList.toggle('status-draft',st==='draft');message.classList.toggle('status-sent',st==='sent');draftBtn.classList.toggle('status-draft',st==='draft');sentBtn.classList.toggle('status-sent',st==='sent')}
+memoBtn.onclick=()=>drawer.classList.add('show');closeDrawer.onclick=()=>drawer.classList.remove('show');pad.oninput=()=>{db.pad=pad.value;save()};
+function renderTodos(){todoList.innerHTML=db.todos.length?db.todos.map((t,i)=>`<div class="todo ${t.done?'done':''}"><input type="checkbox" data-check="${i}" ${t.done?'checked':''}><span>${esc(t.text)}</span><small>${t.date||'날짜 없음'}</small><button class="icon" data-tdel="${i}">×</button></div>`).join(''):'<div class="empty">할 일이 없습니다.</div>'}
+addTodo.onclick=()=>{if(!todoText.value.trim())return;db.todos.unshift({text:todoText.value.trim(),date:todoDate.value,done:false});todoText.value='';save();renderTodos()};todoList.onclick=e=>{if(e.target.dataset.check!==undefined)db.todos[e.target.dataset.check].done=e.target.checked;else if(e.target.dataset.tdel!==undefined)db.todos.splice(e.target.dataset.tdel,1);else return;save();renderTodos()};
+saveBtn.onclick=()=>{clearTimeout(saveTimer);pushSave()};
+async function start(){await loadRemote();initSelectors();initMonths();renderTodos();pad.value=db.pad||'';render()}
+start();
+</script>
+</body>
+</html>
