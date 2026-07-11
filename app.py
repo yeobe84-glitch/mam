@@ -17,7 +17,7 @@ PORT = int(os.environ.get('PORT', '8027'))
 HOST = '0.0.0.0'
 ROOT = os.path.dirname(os.path.abspath(__file__))
 TARGET = 'sandsu_attendance_ui_exam_message_bookfocus_v59.html'
-ONLINE_TARGET = 'sandsu_online_mobile.html'
+ONLINE_TARGET = TARGET
 TENANTS = {'yeop', 'yeom', 'yeong'}
 DEFAULT_TENANT = 'yeop'
 # For Render Persistent Disk, set SANDSU_DATA_DIR to the disk mount path, for example /var/data.
