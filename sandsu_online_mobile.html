@@ -41,54 +41,44 @@
 }
 </style>
 
-<style id="local-student-tab-exact-v21">
+<style id="local-student-tab-exact-style">
 @media (min-width:768px){
-  :root{--bg:#eef2f7;--card:#fff;--line:#d8e0ea;--text:#0f172a;--primary-soft:#eff6ff;--primary-strong:#2563eb}
-  body{background:var(--bg)}
-  .top{display:none!important}
-  .picker{position:sticky!important;top:0!important;z-index:30!important;background:#fff!important;border-bottom:1px solid var(--line)!important;padding:6px 10px!important;box-shadow:0 2px 8px rgba(15,23,42,.04)!important}
-  .class-row{padding:0!important;gap:7px!important;border:0!important}
-  .class-strip{gap:5px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
-  .class-btn,.student-btn{height:28px!important;min-height:28px!important;padding:0 10px!important;border:1px solid var(--line)!important;border-radius:9px!important;background:#fff!important;color:#334155!important;font-size:12px!important;font-weight:900!important;line-height:1!important;box-shadow:none!important}
-  .class-btn.active,.student-btn.active{background:#dbeafe!important;border-color:#93c5fd!important;color:#1d4ed8!important}
-  .class-memo-btn{height:28px!important;padding:0 12px!important;border-radius:9px!important;font-size:12px!important;box-shadow:none!important}
-  .student-panel{padding:5px 0 0!important}
-  .student-list{display:flex!important;gap:5px!important;flex-wrap:nowrap!important;overflow-x:auto!important}
-  .student-btn{min-width:auto!important;flex:0 0 auto!important}
-  .main{padding:8px 10px 10px!important;height:calc(100vh - 72px)!important;overflow:hidden!important}
-  .student-toolbar{height:50px!important;margin:0 0 8px!important;position:relative!important}
-  .student-head{position:relative!important;top:auto!important;padding:0!important;height:50px!important}
-  .student-head .head-row{height:50px!important;min-height:50px!important;border:1px solid #cfe0ff!important;border-radius:12px!important;background:var(--primary-soft)!important;box-shadow:none!important;padding:7px 12px!important;align-items:center!important}
-  .student-head .head-row>div:first-child{display:flex!important;align-items:baseline!important;gap:8px!important}
-  .student-name{font-size:21px!important;color:var(--text)!important}
-  .student-meta{font-size:12px!important;margin:0!important;color:#64748b!important}
-  .score-pill{border:1px solid #cfe0ff!important;border-radius:10px!important;background:#fff!important;padding:5px 10px!important;font-size:13px!important;box-shadow:none!important}
-  .month-nav{position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important;padding:0!important;gap:8px!important;border:0!important;background:transparent!important;box-shadow:none!important;z-index:4!important}
-  .month-title{font-size:16px!important;min-width:110px!important;color:#0f172a!important}
-  .month-nav .btn{height:28px!important;padding:0 9px!important;border-radius:8px!important;font-size:12px!important;background:#fff!important}
-  .message-student-card{height:calc(100% - 58px)!important;min-height:0!important;border:1px solid var(--line)!important;border-radius:14px!important;background:#fff!important;padding:10px!important;box-shadow:0 4px 14px rgba(15,23,42,.05)!important;overflow:hidden!important}
-  .message-card-grid.message-memo-main-grid{height:100%!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr)!important;gap:10px!important;min-height:0!important}
-  .message-card-col{min-width:0!important;min-height:0!important;display:flex!important;flex-direction:column!important;overflow:hidden!important}
-  .message-card-box{border:1px solid #e3e9f1!important;border-radius:12px!important;background:#fff!important;padding:9px!important;box-shadow:none!important;min-height:0!important;overflow:hidden!important}
-  .message-card-box>label,.message-box-title-row label{display:block!important;font-size:12px!important;font-weight:950!important;color:#334155!important;margin:0 0 7px!important}
-  .message-box-title-row{display:flex!important;align-items:center!important;justify-content:space-between!important;margin-bottom:7px!important}
-  .message-box-title-row label{margin:0!important}
-  .message-attendance-box,.message-student-memo-box,.message-compose-box{height:100%!important;display:flex!important;flex-direction:column!important}
-  #calendarBox,#memoList,#messageBox{flex:1 1 auto!important;min-height:0!important;overflow:auto!important}
-  .calendar{gap:3px!important}.dow{height:20px!important;display:flex!important;align-items:center!important;justify-content:center!important;background:#f8fafc!important;border-radius:6px!important;font-size:10px!important}
-  .day{min-height:44px!important;border-radius:8px!important;padding:4px!important;box-shadow:none!important}
-  .memo-list{gap:5px!important}.memo-month{border:0!important;border-radius:0!important;overflow:visible!important}.memo-month summary{display:none!important}.memo-month-body{padding:0!important;gap:5px!important}.memo-item{border:1px solid #e5e7eb!important;border-radius:9px!important;padding:7px!important;box-shadow:none!important}.memo-text{-webkit-line-clamp:4!important;font-size:12px!important}
-  .message-grid{display:grid!important;grid-template-rows:auto minmax(0,1fr) auto!important;gap:8px!important;min-height:0!important;overflow:hidden!important}
-  .message-right-inputs{display:flex!important;flex-direction:column!important;gap:6px!important}
-  .message-comment-grid{display:flex!important;flex-direction:column!important;gap:6px!important}
-  .message-input{height:31px!important;border:1px solid var(--line)!important;border-radius:8px!important;padding:0 9px!important;background:#fff!important;font-size:12px!important}
-  .message-copy-local{height:30px!important;width:100%!important}
-  .message-sms-box{display:flex!important;flex-direction:column!important;min-height:0!important;padding:0!important;border:0!important}
-  .message-sms-box label{margin-top:1px!important}
-  .message-result{flex:1 1 auto!important;min-height:120px!important;height:auto!important;resize:none!important;border:1px solid var(--line)!important;border-radius:9px!important;padding:9px!important;background:#fbfdff!important}
-  .message-send-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:6px!important;margin-top:7px!important}
-  .btn-soft-local{height:28px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:0 9px;font-size:11px;font-weight:900;color:#334155;cursor:pointer}
-  .status-btn.active{background:#dbeafe;border-color:#93c5fd;color:#1d4ed8}.status-btn.sent{background:#dcfce7;border-color:#86efac;color:#166534}
+  :root{--bg:#eef2f7;--line:#d7dee8;--ink:#111827;--muted:#64748b;--primary:#2563eb;--soft:#f8fafc}
+  body{background:var(--bg);font-size:14px;overflow:hidden}
+  .top{height:34px;padding:0 12px;background:#fff;color:#111827;border-bottom:1px solid #cfd8e3;box-shadow:none}
+  .brand{font-size:14px}.status{color:#64748b;opacity:1}
+  .picker{height:72px;position:relative;top:auto;padding:7px 10px;background:#fff;border-bottom:1px solid #cfd8e3;display:flex;flex-direction:column;gap:5px}
+  .class-row{position:static;padding:0;border:0;background:transparent;gap:6px;height:27px}
+  .class-strip{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding:0}
+  .class-btn,.student-btn{border:1px solid #cbd5e1;background:#fff;border-radius:7px;padding:4px 10px;font-size:13px;line-height:18px;font-weight:800;box-shadow:none;min-width:auto}
+  .class-btn.active,.student-btn.active{background:#e8f0ff;color:#1d4ed8;border-color:#7aa7ff}
+  .class-memo-btn{height:27px;padding:3px 13px;border-radius:7px;font-size:13px;box-shadow:none}
+  .student-panel{padding:0;height:27px;overflow:hidden}.student-list{display:flex;gap:5px;overflow-x:auto;flex-wrap:nowrap;height:27px}.student-btn{flex:0 0 auto;justify-content:center}
+  .main{height:calc(100vh - 106px);padding:8px 10px 10px;overflow:hidden}
+  .student-toolbar{height:60px;margin:0 0 8px;position:relative}
+  .student-head{position:static;padding:0;height:60px;background:transparent;backdrop-filter:none}
+  .student-head .head-row{height:60px;min-height:60px;padding:8px 14px;background:#fff;border:1px solid #d7dee8;border-radius:8px;box-shadow:none;align-items:center}
+  .student-head .head-row>div:first-child{display:flex;align-items:baseline;gap:10px;min-width:220px}
+  .student-name{font-size:22px;line-height:1;font-weight:950}.student-meta{font-size:14px;margin:0;color:#475569;font-weight:800}
+  .score-line{min-width:190px}.score-pill{border:0;background:transparent!important;color:#111827!important;border-radius:0;padding:0;font-size:14px}.score-pill b{font-size:23px;margin-left:12px}
+  .month-nav{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);margin:0;padding:0;border:0;background:transparent;border-radius:0;box-shadow:none;gap:18px}
+  .month-title{min-width:120px;font-size:18px;color:#111827}.month-nav .btn{border:0;background:transparent;padding:4px 7px;border-radius:4px;font-size:20px;color:#111827}
+  .grid{height:calc(100% - 68px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:stretch}
+  .card{height:100%;min-height:0;overflow:hidden;padding:0;background:#fff;border:1px solid #d7dee8;border-radius:8px;box-shadow:none;display:flex;flex-direction:column}
+  .card-titlebar{height:38px;flex:0 0 38px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid #e2e8f0;background:#fbfcfe;font-size:14px;font-weight:950}
+  .card-body{flex:1 1 auto;min-height:0;padding:10px;overflow:hidden;display:flex;flex-direction:column}
+  .attendance-body{padding:10px}.calendar{flex:1 1 auto;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:18px repeat(6,minmax(0,1fr));gap:4px;min-height:0}
+  .dow{font-size:10px;line-height:18px}.day{min-height:0;border:1px solid #e2e8f0;border-radius:6px;padding:5px 4px;background:#fff}.day-num{font-size:13px}.mark{font-size:10px;padding:1px 2px}
+  .attendance-summary{height:62px;flex:0 0 62px;margin-top:8px;border:1px solid #dbeafe;background:#f8fbff;border-radius:9px;display:flex;align-items:center;justify-content:center;gap:18px;font-size:16px;font-weight:900}
+  .memo-list{flex:1 1 auto;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:7px}.memo-item{border:1px solid #dfe6ef;border-radius:7px;padding:8px}.memo-date{font-size:11px}.memo-text{font-size:13px;line-height:1.45;-webkit-line-clamp:unset;display:block}
+  .message-grid{height:100%;display:grid;grid-template-rows:auto 1fr;gap:10px;min-height:0}
+  .compose-box,.sms-box{border:1px solid #dfe6ef;border-radius:7px;padding:9px;min-height:0;display:flex;flex-direction:column}.compose-box{gap:6px}.sms-box{overflow:hidden}
+  .message-label{font-size:12px;font-weight:950;margin-bottom:2px}.message-grid input,.message-grid textarea,.message-grid select{border:1px solid #cfd8e3;border-radius:6px;padding:7px 8px;background:#fff}
+  .message-grid input{height:32px}.comment-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}.comment{height:32px!important;min-height:32px!important;resize:none;padding:6px 8px!important}.comment-grid .comment:last-child{grid-column:1/3}
+  .copy-row{display:flex;justify-content:flex-end}.copy-row .btn{padding:5px 10px;border-radius:6px}
+  .sms-box #msgText{flex:1 1 auto;min-height:100px;resize:none}.sms-actions{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:7px}.sms-actions .btn{padding:6px 7px;border-radius:6px}
+  .message-status-draft{background:#fef3c7!important;border-color:#fcd34d!important}.message-status-sent{background:#dcfce7!important;border-color:#86efac!important}
+  #addMemoBtn,#memoEditor{display:none!important}
 }
 </style>
 </head>
@@ -97,31 +87,17 @@
 <header class="top"><div class="brand">수앤수</div><div class="status" id="status">불러오는 중</div></header>
 <section class="picker">
   <div class="class-row"><nav class="class-strip" id="classStrip"></nav><button type="button" class="class-memo-btn" id="openMemoDrawerBtn">메모</button></div>
-  <aside class="student-panel">
-    <div class="student-list" id="studentList"></div>
-  </aside>
+  <aside class="student-panel"><div class="student-list" id="studentList"></div></aside>
 </section>
 <main class="main">
   <div class="student-toolbar">
     <div class="student-head"><div class="head-row"><div><div class="student-name" id="studentName">학생을 선택하세요</div><div class="student-meta" id="studentMeta"></div></div><div class="score-line" id="scoreLine"></div></div></div>
-    <div class="month-nav" aria-label="조회 월 선택">
-      <button class="btn" id="globalPrevMonth" type="button" aria-label="이전 달">◀</button>
-      <div class="month-title" id="globalMonthTitle"></div>
-      <button class="btn" id="globalNextMonth" type="button" aria-label="다음 달">▶</button>
-    </div>
+    <div class="month-nav" aria-label="조회 월 선택"><button class="btn" id="globalPrevMonth" type="button">◀</button><div class="month-title" id="globalMonthTitle"></div><button class="btn" id="globalNextMonth" type="button">▶</button></div>
   </div>
-  <div class="message-student-card" id="contentGrid">
-    <div class="message-card-grid message-memo-main-grid">
-      <div class="message-card-col message-card-att-col">
-        <div class="message-card-box message-attendance-box"><label>출결</label><div id="calendarBox" class="empty">학생을 선택하면 표시됩니다.</div></div>
-      </div>
-      <div class="message-card-col message-card-memo-col">
-        <div class="message-card-box message-student-memo-box"><div class="message-box-title-row"><label>학생메모</label><button class="btn-soft-local" id="addMemoBtn" type="button">추가</button></div><div id="memoEditor" style="display:none;margin-bottom:8px"><div class="row"><input type="date" id="memoDate"><button class="btn primary" id="saveMemoBtn">저장</button></div><textarea id="memoText" placeholder="메모 내용"></textarea></div><div class="memo-list" id="memoList"></div></div>
-      </div>
-      <div class="message-card-col message-card-text-col">
-        <div class="message-card-box message-compose-box"><label>진도 / 코멘트</label><div id="messageBox" class="message-grid empty">학생을 선택하면 표시됩니다.</div></div>
-      </div>
-    </div>
+  <div class="grid" id="contentGrid">
+    <section class="card"><div class="card-titlebar"><span>출결</span></div><div class="card-body attendance-body"><div id="calendarBox" class="empty">학생을 선택하면 표시됩니다.</div></div></section>
+    <section class="card"><div class="card-titlebar"><span>학생메모</span></div><div class="card-body"><button class="btn" id="addMemoBtn" type="button">추가</button><div id="memoEditor" style="display:none"><input type="date" id="memoDate"><button class="btn primary" id="saveMemoBtn">저장</button><textarea id="memoText"></textarea></div><div class="memo-list" id="memoList"></div></div></section>
+    <section class="card"><div class="card-titlebar"><span>진도 / 코멘트 / 문자</span></div><div class="card-body"><button class="btn" id="copyMsgBtn" type="button" style="display:none">내용복사</button><div id="messageBox" class="message-grid empty">학생을 선택하면 표시됩니다.</div></div></section>
   </div>
 </main>
 </div>
@@ -169,11 +145,11 @@ function scoreInfo(record){
   return {text:visible.join(' / '), cls};
 }
 function monthlyExamRecord(classId,studentId,month){return (((data.monthlyExams||{})[classId]||{})[studentId]||{})[month] || null}
-function renderStudentContent(){const s=currentStudent(), c=currentClass(); renderMonthNav(); if(!s){$('studentName').textContent='학생을 선택하세요'; $('studentMeta').textContent=''; $('scoreLine').innerHTML=''; $('calendarBox').className='empty'; $('calendarBox').textContent='재원생이 없습니다.'; $('memoList').innerHTML='<div class="empty">재원생이 없습니다.</div>'; $('messageBox').className='message-grid empty'; $('messageBox').textContent='재원생이 없습니다.'; return} $('studentName').textContent=s.name||''; $('studentMeta').textContent=`${(c&&c.name)||''}`; const si=scoreInfo(monthlyExamRecord(c.id,s.id,ym(viewDate))); $('scoreLine').innerHTML=`<span class="score-pill ${si.cls}">평가 ${esc(si.text)}</span>`; renderCalendar(); renderMemos(); renderMessage();}
+function renderStudentContent(){const s=currentStudent(), c=currentClass(); renderMonthNav(); if(!s){$('studentName').textContent='학생을 선택하세요'; $('studentMeta').textContent=''; $('scoreLine').innerHTML=''; $('calendarBox').className='empty'; $('calendarBox').textContent='재원생이 없습니다.'; $('memoList').innerHTML='<div class="empty">재원생이 없습니다.</div>'; $('messageBox').className='message-grid empty'; $('messageBox').textContent='재원생이 없습니다.'; return} $('studentName').textContent=s.name||''; $('studentMeta').textContent=`${(c&&c.name)||''}`; const si=scoreInfo(monthlyExamRecord(c.id,s.id,ym(viewDate))); $('scoreLine').innerHTML=`<span class="score-pill ${si.cls}"><span>평가</span><b>${esc(si.text)}</b></span>`; renderCalendar(); renderMemos(); renderMessage();}
 
 function renderMonthNav(){const base=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const t=$('globalMonthTitle'); if(t)t.textContent=`${base.getFullYear()}년 ${base.getMonth()+1}월`;}
 function shiftMonth(delta){viewDate=new Date(viewDate.getFullYear(),viewDate.getMonth()+delta,1); renderStudentContent();}
-function renderCalendar(){const s=currentStudent(), c=currentClass(); const base=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const first=new Date(base); const startDay=first.getDay(); const last=new Date(base.getFullYear(),base.getMonth()+1,0).getDate(); const today=ymd(new Date()); let html=`<div class="calendar">`; ['일','월','화','수','목','금','토'].forEach(d=>html+=`<div class="dow">${d}</div>`); for(let i=0;i<startDay;i++) html+='<div></div>'; for(let d=1;d<=last;d++){const date=`${base.getFullYear()}-${pad(base.getMonth()+1)}-${pad(d)}`; const att=(((data.attendance||{})[date]||{})[c.id]||{})[s.id]; const memos=(data.studentMemos||[]).filter(m=>m.studentId===s.id && m.date===date); const off=(c.offDateList||[]).includes(date); let cls='day '+(date===today?'today ':'')+(att||memos.length?'has ':'')+(off?'off ':''); html+=`<div class="${cls}"><div class="day-num">${d}</div>`; if(att){ if(att.absent) html+='<span class="mark abs">결석</span>'; else html+='<span class="mark memo">출석</span>'; if(att.homeworkMissing) html+='<span class="mark hw">숙제</span>'; } if(memos.length) html+=`<span class="mark memo">메모 ${memos.length}</span>`; html+='</div>'; } html+='</div>'; $('calendarBox').className=''; $('calendarBox').innerHTML=html;}
+function renderCalendar(){const s=currentStudent(), c=currentClass(); const base=new Date(viewDate.getFullYear(),viewDate.getMonth(),1); const first=new Date(base); const startDay=first.getDay(); const last=new Date(base.getFullYear(),base.getMonth()+1,0).getDate(); const today=ymd(new Date()); let absentCount=0, homeworkCount=0; let html=`<div class="calendar">`; ['일','월','화','수','목','금','토'].forEach(d=>html+=`<div class="dow">${d}</div>`); for(let i=0;i<startDay;i++) html+='<div></div>'; for(let d=1;d<=last;d++){const date=`${base.getFullYear()}-${pad(base.getMonth()+1)}-${pad(d)}`; const att=(((data.attendance||{})[date]||{})[c.id]||{})[s.id]; const memos=(data.studentMemos||[]).filter(m=>m.studentId===s.id && m.date===date); const off=(c.offDateList||[]).includes(date); let cls='day '+(date===today?'today ':'')+(att||memos.length?'has ':'')+(off?'off ':''); html+=`<div class="${cls}"><div class="day-num">${d}</div>`; if(att){ if(att.absent){html+='<span class="mark abs">결석</span>';absentCount++;} else if(att.checkedAt) html+=`<span class="mark memo">${esc(String(att.checkedAt).slice(11,16)||'출석')}</span>`; if(att.homeworkMissing){html+='<span class="mark hw">숙제</span>';homeworkCount++;} } if(memos.length) html+=`<span class="mark memo">메모 ${memos.length}</span>`; html+='</div>'; } html+='</div><div class="attendance-summary"><span>결석 <b>'+absentCount+'</b></span><span>숙제 <b>'+homeworkCount+'</b></span></div>'; $('calendarBox').className=''; $('calendarBox').innerHTML=html;}
 function renderMemos(){const s=currentStudent(); const list=$('memoList'); const month=ym(viewDate); const memos=(data.studentMemos||[]).filter(m=>m.studentId===s.id && String(m.date||'').slice(0,7)===month).sort((a,b)=>(b.pinned-a.pinned)||String(b.date).localeCompare(String(a.date))||String(b.createdAt).localeCompare(String(a.createdAt))); list.innerHTML=''; if(!memos.length){list.innerHTML=`<div class="empty">${month} 메모 없음</div>`;return} memos.forEach(m=>{const div=document.createElement('div'); div.className='memo-item open'; div.innerHTML=`<div class="row space"><div class="memo-date">${m.pinned?'📌 ':''}${m.date||''}</div><div><button class="btn" data-act="pin">핀</button> <button class="btn danger" data-act="del">삭제</button></div></div><div class="memo-text"></div>`; div.querySelector('.memo-text').textContent=m.content||''; div.querySelector('[data-act=pin]').onclick=()=>{m.pinned=!m.pinned; renderMemos(); save().catch(e=>toast('저장 실패'))}; div.querySelector('[data-act=del]').onclick=()=>{if(confirm('삭제할까요?')){data.studentMemos=data.studentMemos.filter(x=>x.id!==m.id); renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}}; list.appendChild(div)});}
 function normalizeMessageRec(v){
   v=v||{};
@@ -203,8 +179,7 @@ function getStudentMessageMonths(c,s){
 function getMessageRoot(classId,studentId){data.monthlyMessages=data.monthlyMessages||{}; data.todos=Array.isArray(data.todos)?data.todos:[]; data.classMemos=(data.classMemos&&typeof data.classMemos==='object')?data.classMemos:{}; data.quickMemoPad=String(data.quickMemoPad||''); data.monthlyMessages[classId]=data.monthlyMessages[classId]||{}; data.monthlyMessages[classId][studentId]=data.monthlyMessages[classId][studentId]||{}; return data.monthlyMessages[classId][studentId];}
 function pickMessageMonth(c,s){const cur=ym(viewDate); if(findMessageRecord(c,s,cur)) return cur; const months=getStudentMessageMonths(c,s); return months[0]||cur;}
 let messageSaveTimer=null, drawerSaveTimer=null;
-function renderMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c){$('messageBox').className='message-grid empty';$('messageBox').textContent='학생을 선택하면 표시됩니다.';return} const month=ym(viewDate); const found=findMessageRecord(c,s,month); const rec=normalizeMessageRec(found?.record||{}); let html=`<div class="message-right-inputs"><input class="message-input" id="progress" placeholder="진도 입력" value="${esc(rec.progress||'')}"><div class="message-comment-grid">`; for(let i=0;i<5;i++) html+=`<input class="message-input comment" data-i="${i}" placeholder="코멘트 ${i+1}" value="${esc((rec.comments||[])[i]||'')}">`; html+=`</div><button class="btn-soft-local message-copy-local" id="copyMsgBtn" type="button">내용복사</button></div><div class="message-card-box message-sms-box"><label>문자내용</label><textarea class="message-result" id="msgText" placeholder="문자 내용을 입력">${esc(rec.message||'')}</textarea><div class="message-send-actions"><button class="btn-soft-local status-btn ${rec.messageStatus==='draft'?'active':''}" data-status="draft" type="button">작성</button><button class="btn-soft-local status-btn ${rec.messageStatus==='sent'?'active sent':''}" data-status="sent" type="button">전송</button></div></div><select id="msgStatus" hidden><option value=""></option><option value="draft">작성</option><option value="sent">전송</option></select>`; $('messageBox').className='message-grid'; $('messageBox').innerHTML=html; $('msgStatus').value=rec.messageStatus||''; $('messageBox').querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',queueMessageSave)); $('copyMsgBtn')?.addEventListener('click',copyMessageContent); $('messageBox').querySelectorAll('.status-btn').forEach(btn=>btn.onclick=()=>{const next=$('msgStatus').value===btn.dataset.status?'':btn.dataset.status;$('msgStatus').value=next;queueMessageSave();renderMessage();});
-}
+function renderMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c){$('messageBox').className='message-grid empty';$('messageBox').textContent='학생을 선택하면 표시됩니다.';return} const month=ym(viewDate); const found=findMessageRecord(c,s,month); const rec=normalizeMessageRec(found?.record||{}); const statusCls=rec.messageStatus==='draft'?'message-status-draft':rec.messageStatus==='sent'?'message-status-sent':''; let html=`<div class="compose-box"><div class="message-label">진도 / 코멘트</div><input id="progress" placeholder="진도 입력" value="${esc(rec.progress||'')}"><div class="comment-grid">`; for(let i=0;i<5;i++) html+=`<textarea class="comment" rows="1" data-i="${i}" placeholder="코멘트 ${i+1}">${esc((rec.comments||[])[i]||'')}</textarea>`; html+=`</div><div class="copy-row"><button class="btn" id="innerCopyBtn" type="button">내용복사</button></div></div><div class="sms-box ${statusCls}"><div class="message-label">문자내용</div><textarea id="msgText" class="${statusCls}" placeholder="문자 내용을 입력">${esc(rec.message||'')}</textarea><div class="sms-actions"><button class="btn" id="draftBtn" type="button">작성</button><button class="btn" id="sentBtn" type="button">전송</button><select id="msgStatus"><option value="">상태 없음</option><option value="draft">작성</option><option value="sent">전송</option></select></div></div>`; $('messageBox').className='message-grid'; $('messageBox').innerHTML=html; $('msgStatus').value=rec.messageStatus||''; $('messageBox').querySelectorAll('input,textarea,select').forEach(el=>{el.addEventListener(el.tagName==='SELECT'?'change':'input',queueMessageSave)}); $('innerCopyBtn').onclick=copyMessageContent; $('draftBtn').onclick=()=>{$('msgStatus').value=$('msgStatus').value==='draft'?'':'draft';queueMessageSave();renderMessage()}; $('sentBtn').onclick=()=>{$('msgStatus').value=$('msgStatus').value==='sent'?'':'sent';queueMessageSave();renderMessage()};}
 function captureMessage(){const s=currentStudent(), c=currentClass(); if(!s||!c||!$('progress'))return; const month=ym(viewDate); const root=getMessageRoot(c.id,s.id); root[month]={progress:$('progress').value,comments:[...$('messageBox').querySelectorAll('.comment')].map(x=>x.value),message:$('msgText').value,messageStatus:$('msgStatus').value,sentDone:$('msgStatus').value==='sent'};}
 function queueMessageSave(){captureMessage(); clearTimeout(messageSaveTimer); messageSaveTimer=setTimeout(()=>save().catch(e=>toast('저장 실패: '+e.message)),500)}
 function copyMessageContent(){captureMessage(); const parts=[]; const progress=$('progress')?.value.trim(); if(progress) parts.push(progress); [...$('messageBox').querySelectorAll('.comment')].map(x=>x.value.trim()).filter(Boolean).forEach(v=>parts.push(v)); const message=$('msgText')?.value.trim(); if(message) parts.push(message); const text=parts.join('\n'); if(!text){toast('복사할 내용 없음');return} navigator.clipboard.writeText(text).then(()=>toast('내용 복사 완료')).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();toast('내용 복사 완료')});}
@@ -220,7 +195,7 @@ function saveDrawerQuick(){const text=$('drawerQuickText').value.trim();if(!text
 
 function esc(v){return String(v??'').replace(/[&<>"']/g, ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 $('globalPrevMonth')?.addEventListener('click',()=>shiftMonth(-1)); $('globalNextMonth')?.addEventListener('click',()=>shiftMonth(1));
-$('addMemoBtn').onclick=()=>{$('memoEditor').style.display=$('memoEditor').style.display==='none'?'block':'none'; $('memoDate').value=ym(viewDate)+'-01';}; $('saveMemoBtn').onclick=()=>{const s=currentStudent(), c=currentClass(); const t=$('memoText').value.trim(); if(!s||!t)return; data.studentMemos.push({id:uid('memo'),classId:c.id,studentId:s.id,date:$('memoDate').value||ymd(new Date()),createdAt:new Date().toISOString(),pinned:false,content:t}); $('memoText').value=''; $('memoEditor').style.display='none'; renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}; $('openMemoDrawerBtn').onclick=openMemoDrawer; $('closeMemoDrawerBtn').onclick=closeMemoDrawer; $('memoOverlay').onclick=closeMemoDrawer; $('drawerQuickSave').onclick=saveDrawerQuick; $('drawerToggleDone').onclick=()=>{$('drawerToggleDone').dataset.hideDone=$('drawerToggleDone').dataset.hideDone==='0'?'1':'0';renderMemoDrawer()}; $('drawerClassMemo').addEventListener('input',e=>{const c=currentClass();if(!c)return;data.classMemos=data.classMemos||{};if(e.target.value.trim())data.classMemos[c.id]=e.target.value;else delete data.classMemos[c.id];queueDrawerSave()}); $('drawerMemoPad').addEventListener('input',e=>{data.quickMemoPad=e.target.value;queueDrawerSave()});
+$('addMemoBtn').onclick=()=>{$('memoEditor').style.display=$('memoEditor').style.display==='none'?'block':'none'; $('memoDate').value=ym(viewDate)+'-01';}; $('saveMemoBtn').onclick=()=>{const s=currentStudent(), c=currentClass(); const t=$('memoText').value.trim(); if(!s||!t)return; data.studentMemos.push({id:uid('memo'),classId:c.id,studentId:s.id,date:$('memoDate').value||ymd(new Date()),createdAt:new Date().toISOString(),pinned:false,content:t}); $('memoText').value=''; $('memoEditor').style.display='none'; renderMemos(); renderCalendar(); save().catch(e=>toast('저장 실패'))}; $('copyMsgBtn').onclick=copyMessageContent; $('openMemoDrawerBtn').onclick=openMemoDrawer; $('closeMemoDrawerBtn').onclick=closeMemoDrawer; $('memoOverlay').onclick=closeMemoDrawer; $('drawerQuickSave').onclick=saveDrawerQuick; $('drawerToggleDone').onclick=()=>{$('drawerToggleDone').dataset.hideDone=$('drawerToggleDone').dataset.hideDone==='0'?'1':'0';renderMemoDrawer()}; $('drawerClassMemo').addEventListener('input',e=>{const c=currentClass();if(!c)return;data.classMemos=data.classMemos||{};if(e.target.value.trim())data.classMemos[c.id]=e.target.value;else delete data.classMemos[c.id];queueDrawerSave()}); $('drawerMemoPad').addEventListener('input',e=>{data.quickMemoPad=e.target.value;queueDrawerSave()});
 load().then(()=>setInterval(pollServerChanges,2000)).catch(e=>{$('status').textContent='오류'; toast(e.message)});
 })();
 </script>
