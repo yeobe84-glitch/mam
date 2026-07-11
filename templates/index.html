@@ -74,7 +74,7 @@ async function loadRemote(){
   }catch(err){
     db=cacheLoad();setSync('오프라인 임시 데이터',true);console.error(err);
   }
-  classId=db.classes[0]?.id||'';studentId=db.classes[0]?.students?.[0]?.id||'';
+  classId=(db.classes.find(c=>c.id===db.activeClassId)?.id)||db.classes[0]?.id||'';studentId=db.classes.find(c=>c.id===classId)?.students?.[0]?.id||'';
 }
 function save(){
   localStorage.setItem(KEY,JSON.stringify(db));

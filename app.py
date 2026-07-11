@@ -16,9 +16,17 @@ def authorized():
 def data_file(user): return DATA_DIR/f"academy_online_{user}.json"
 def ensure_user_data(user):
     p=data_file(user)
-    if not p.exists():
-        DATA_DIR.mkdir(parents=True,exist_ok=True)
-        initial=INITIAL_DIR/f"{user}.json"
+    DATA_DIR.mkdir(parents=True,exist_ok=True)
+    initial=INITIAL_DIR/f"{user}.json"
+    must_seed=not p.exists()
+    if p.exists() and user=="yeop":
+        try:
+            current=json.loads(p.read_text(encoding="utf-8"))
+            names=[s.get("name") for c in current.get("classes",[]) for s in c.get("students",[])]
+            must_seed=(current.get("__onlineSeedVersion",0)<3 or not current.get("classes") or "김학생" in names)
+        except Exception:
+            must_seed=True
+    if must_seed:
         if initial.exists(): shutil.copyfile(initial,p)
         else: p.write_text('{"classes":[],"records":{},"todos":[],"pad":""}',encoding="utf-8")
     return p

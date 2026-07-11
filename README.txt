@@ -10,3 +10,6 @@
 
 Render Persistent Disk 사용 시 Mount Path를 /opt/render/project/src/data 로 설정하고
 환경변수 DATA_DIR=/opt/render/project/src/data 를 지정하세요.
+
+
+V3 수정: academy_data.json을 온라인 표시 구조로 변환. 기존 빈 yeop 데이터는 첫 실행 시 자동 교체됩니다.
