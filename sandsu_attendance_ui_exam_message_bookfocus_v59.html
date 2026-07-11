@@ -1932,22 +1932,6 @@
           <label for="checkbusTeacherName">출결버스 강사이름</label>
           <input id="checkbusTeacherName" type="text" placeholder="예: 김선생" />
         </div>
-        <div class="checkbus-setting-row" id="onlineSaveSettingRow">
-          <label for="onlineTeacherSelect">온라인 저장</label>
-          <select id="onlineTeacherSelect">
-            <option value="yeop">yeop</option>
-            <option value="yeom">yeom</option>
-            <option value="yeong">yeong</option>
-          </select>
-          <input id="onlineBaseUrlInput" type="text" placeholder="https://mam-s8mv.onrender.com" />
-          <input id="onlinePasswordInput" type="password" placeholder="Render 비밀번호" />
-          <div class="row" style="gap:8px;align-items:center;flex-wrap:wrap;">
-            <label style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;"><input id="onlineEnabledCheck" type="checkbox" style="width:auto;height:auto;"> 자동 온라인 저장</label>
-            <button type="button" class="btn-soft" id="onlineConfigSaveBtn">온라인 설정 저장</button>
-            <button type="button" class="btn-primary" id="onlineUploadNowBtn">지금 업로드</button>
-          </div>
-          <div class="small" id="onlineSaveStatusText">프로그램 시작 시 온라인/로컬 시간을 비교해 최신본을 자동 사용합니다. 자동저장은 5초 뒤 온라인 업로드됩니다.</div>
-        </div>
         <div class="checkbus-setting-row" id="themeSettingRow">
           <label for="themeSelect">테마</label>
           <select id="themeSelect">
@@ -3901,119 +3885,7 @@ function buildMiraeSrcDoc(modalHtml, pageAssets){
     .settings-class-type-btn.active{background:#dc2626;color:#fff;border-color:#dc2626}
     .settings-student-book.mirae-disabled{background:#f8fafc;color:#94a3b8}
 
-</style></head><body class="${bodyClass}">${modalHtml||''}
-<style id="onlineStudentOnlyPatch">
-html,body{height:100%;overflow:hidden!important;background:#f4f7fb!important}
-.main-tabs-top,.fixed-sidebar{display:none!important}
-.app,.app-shell,.content-shell{width:100%!important;max-width:none!important;height:100%!important;margin:0!important;padding:0!important}
-.app-shell{display:block!important}
-.content-shell{overflow:hidden!important}
-.content-shell>.panel{display:none!important}
-#messagePanel{display:block!important;height:100%!important;padding:4px!important;box-sizing:border-box!important}
-#messagePanel .message-card-panel{height:100%!important;margin:0!important;border-radius:16px!important;box-sizing:border-box!important}
-#messageClassTabs{display:none!important}
-#messagePanel .message-card-toolbar{padding-right:58px!important}
-.memo-floating-tab{right:8px!important;top:40%!important;z-index:1200!important}
-.online-student-floating-tab{position:fixed;right:8px;top:calc(40% + 64px);z-index:1200;border:0;border-radius:10px 0 0 10px;background:#2563eb;color:#fff;font-weight:800;font-size:14px;padding:14px 11px;box-shadow:0 8px 20px rgba(37,99,235,.28);cursor:pointer;writing-mode:vertical-rl;letter-spacing:1px}
-.online-student-drawer{position:fixed;z-index:1300;top:0;right:-360px;width:350px;max-width:92vw;height:100vh;background:#fff;border-left:1px solid #dbe3ef;box-shadow:-12px 0 30px rgba(15,23,42,.18);transition:right .2s ease;display:flex;flex-direction:column}
-.online-student-drawer.open{right:0}
-.online-student-drawer-head{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;border-bottom:1px solid #e5e7eb;font-size:18px;font-weight:900}
-.online-student-drawer-head button{border:0;background:transparent;font-size:24px;cursor:pointer;color:#64748b}
-.online-student-drawer-body{padding:12px;overflow:auto;flex:1;min-height:0}
-.online-student-section-title{font-size:13px;font-weight:900;margin:4px 0 8px;color:#334155}
-.online-class-list,.online-student-list{border:1px solid #dbe3ef;border-radius:10px;overflow:hidden;background:#fff}
-.online-class-item,.online-student-item{width:100%;border:0;border-bottom:1px solid #edf1f6;background:#fff;display:flex;align-items:center;justify-content:space-between;padding:11px 12px;font-size:14px;cursor:pointer;text-align:left}
-.online-class-item:last-child,.online-student-item:last-child{border-bottom:0}
-.online-class-item:hover,.online-student-item:hover{background:#f8fafc}
-.online-class-item.active,.online-student-item.active{background:#eaf2ff;color:#1d4ed8;font-weight:900}
-.online-student-divider{height:16px}
-.online-student-backdrop{position:fixed;inset:0;background:rgba(15,23,42,.28);z-index:1250;display:none}
-.online-student-backdrop.open{display:block}
-@media(max-width:760px){.online-student-floating-tab{right:0}.online-student-drawer{width:86vw}.memo-floating-tab{right:0!important}}
-</style>
-<button type="button" class="online-student-floating-tab" id="onlineStudentFloatingBtn">학생</button>
-<div class="online-student-backdrop" id="onlineStudentBackdrop"></div>
-<aside class="online-student-drawer" id="onlineStudentDrawer" aria-hidden="true">
-  <div class="online-student-drawer-head"><span>학생 선택</span><button type="button" id="onlineStudentDrawerClose">×</button></div>
-  <div class="online-student-drawer-body">
-    <div class="online-student-section-title">반 목록</div>
-    <div class="online-class-list" id="onlineDrawerClassList"></div>
-    <div class="online-student-divider"></div>
-    <div class="online-student-section-title" id="onlineDrawerStudentTitle">학생 목록</div>
-    <div class="online-student-list" id="onlineDrawerStudentList"></div>
-  </div>
-</aside>
-<script id="onlineStudentOnlyScript">
-(function(){
-  function showStudentPanel(){
-    document.querySelectorAll('.content-shell>.panel').forEach(p=>p.classList.remove('active'));
-    const panel=document.getElementById('messagePanel');
-    if(panel){ panel.classList.add('active'); panel.style.display='block'; }
-    document.querySelectorAll('.main-tab').forEach(b=>b.classList.toggle('active',b.dataset.panel==='messagePanel'));
-    try{ if(typeof renderMessagePanel==='function') renderMessagePanel(); }catch(e){ console.error(e); }
-  }
-  function visibleStudents(cls){
-    if(!cls) return [];
-    try{
-      const month=(typeof getSelectedMessageMonth==='function')?getSelectedMessageMonth():'';
-      if(typeof getLookupStudentsForMonth==='function') return getLookupStudentsForMonth(cls,month)||[];
-    }catch(e){}
-    return (cls.students||[]).filter(s=>!s.deletedAt);
-  }
-  function renderDrawer(){
-    const classWrap=document.getElementById('onlineDrawerClassList');
-    const studentWrap=document.getElementById('onlineDrawerStudentList');
-    const title=document.getElementById('onlineDrawerStudentTitle');
-    if(!classWrap||!studentWrap||typeof state==='undefined') return;
-    classWrap.innerHTML=''; studentWrap.innerHTML='';
-    const classes=(state.classes||[]);
-    let cls=classes.find(c=>c.id===state.activeClassId)||classes[0];
-    if(cls && state.activeClassId!==cls.id) state.activeClassId=cls.id;
-    classes.forEach(c=>{
-      const students=visibleStudents(c);
-      const b=document.createElement('button');
-      b.type='button'; b.className='online-class-item'+(cls&&c.id===cls.id?' active':'');
-      b.innerHTML='<span>'+String(c.name||'')+'</span><span>'+students.length+'명</span>';
-      b.onclick=()=>{ state.activeClassId=c.id; selectedMessageStudentId=''; try{persistViewState();}catch(e){} renderDrawer(); try{renderMessagePanel();}catch(e){} };
-      classWrap.appendChild(b);
-    });
-    if(!cls){ title.textContent='학생 목록'; studentWrap.innerHTML='<div style="padding:14px;color:#64748b">반이 없습니다.</div>'; return; }
-    const students=visibleStudents(cls);
-    title.textContent=(cls.name||'')+' 학생 목록 ('+students.length+'명)';
-    students.forEach(st=>{
-      const b=document.createElement('button');
-      b.type='button'; b.className='online-student-item'+(st.id===selectedMessageStudentId?' active':'');
-      b.textContent=st.name||'';
-      b.onclick=()=>{
-        state.activeClassId=cls.id; selectedMessageStudentId=st.id;
-        try{persistViewState();}catch(e){}
-        try{renderMessagePanel();}catch(e){}
-        closeDrawer();
-      };
-      studentWrap.appendChild(b);
-    });
-    if(!students.length) studentWrap.innerHTML='<div style="padding:14px;color:#64748b">학생이 없습니다.</div>';
-  }
-  function openDrawer(){
-    renderDrawer();
-    document.getElementById('onlineStudentDrawer')?.classList.add('open');
-    document.getElementById('onlineStudentBackdrop')?.classList.add('open');
-  }
-  function closeDrawer(){
-    document.getElementById('onlineStudentDrawer')?.classList.remove('open');
-    document.getElementById('onlineStudentBackdrop')?.classList.remove('open');
-  }
-  window.addEventListener('DOMContentLoaded',()=>{
-    document.getElementById('onlineStudentFloatingBtn')?.addEventListener('click',openDrawer);
-    document.getElementById('onlineStudentDrawerClose')?.addEventListener('click',closeDrawer);
-    document.getElementById('onlineStudentBackdrop')?.addEventListener('click',closeDrawer);
-    setTimeout(showStudentPanel,200);
-    setTimeout(showStudentPanel,900);
-  });
-})();
-</script>
-
-</body></html>`;
+</style></head><body class="${bodyClass}">${modalHtml||''}</body></html>`;
 }
 function setMiraeStatus(pane,msg){ const el=pane?.querySelector('.mirae-overlay-status'); if(el) el.textContent=msg; }
 function setMiraePlaceholder(pane,msg){ const el=pane?.querySelector('.mirae-overlay-placeholder'); if(el) el.textContent=msg; }
@@ -7598,79 +7470,6 @@ document.addEventListener('click',(e)=>{
 }, true);
 
 
-/* Online save settings: local save stays instant; upload is handled by local server in the background. */
-function setOnlineStatusText(text, isError=false){
-  const el=document.getElementById('onlineSaveStatusText');
-  if(!el) return;
-  el.textContent=String(text||'');
-  el.style.color=isError?'#dc2626':'#64748b';
-}
-async function loadOnlineSettings(){
-  try{
-    const res=await fetch('/api/online-config?ts='+Date.now(), {cache:'no-store'});
-    const data=await res.json();
-    if(!data || !data.ok) throw new Error(data?.error||'config load failed');
-    const cfg=data.config||{};
-    const teacher=document.getElementById('onlineTeacherSelect');
-    const url=document.getElementById('onlineBaseUrlInput');
-    const password=document.getElementById('onlinePasswordInput');
-    const enabled=document.getElementById('onlineEnabledCheck');
-    if(teacher) teacher.value=cfg.teacher||'yeop';
-    if(url) url.value=cfg.base_url||'https://mam-s8mv.onrender.com';
-    if(password) password.placeholder=cfg.has_password?'저장된 비밀번호 있음':'Render 비밀번호';
-    if(enabled) enabled.checked=!!cfg.enabled;
-    const st=cfg.last_status||{};
-    if(st.message) setOnlineStatusText(st.uploaded_at?`${st.message} (${st.uploaded_at})`:st.message, st.ok===false);
-  }catch(e){
-    setOnlineStatusText('온라인 설정을 불러오지 못함: '+String(e.message||e), true);
-  }
-}
-async function saveOnlineSettings(){
-  const teacher=document.getElementById('onlineTeacherSelect')?.value||'yeop';
-  const baseUrl=document.getElementById('onlineBaseUrlInput')?.value||'https://mam-s8mv.onrender.com';
-  const passwordEl=document.getElementById('onlinePasswordInput');
-  const enabled=!!document.getElementById('onlineEnabledCheck')?.checked;
-  const payload={teacher,base_url:baseUrl,enabled};
-  if(passwordEl && passwordEl.value) payload.password=passwordEl.value;
-  try{
-    const res=await fetch('/api/online-config', {method:'POST',headers:{'Content-Type':'application/json;charset=UTF-8'},body:JSON.stringify(payload)});
-    const data=await res.json();
-    if(!data || !data.ok) throw new Error(data?.error||'config save failed');
-    if(passwordEl) passwordEl.value='';
-    setOnlineStatusText('온라인 설정 저장됨. 최신본 비교 중...');
-    try{
-      const syncRes=await fetch('/api/online-sync-now', {method:'POST'});
-      const syncData=await syncRes.json();
-      const st=syncData?.status||{};
-      if(st.message) setOnlineStatusText(st.uploaded_at?`${st.message} (${st.uploaded_at})`:st.message, syncData?.ok===false);
-    }catch(_e){}
-    await loadOnlineSettings();
-  }catch(e){
-    setOnlineStatusText('온라인 설정 저장 실패: '+String(e.message||e), true);
-  }
-}
-async function uploadOnlineNow(){
-  setOnlineStatusText('온라인 업로드 중...');
-  try{
-    saveState('manual');
-    const res=await fetch('/api/online-upload-now', {method:'POST'});
-    const data=await res.json();
-    if(!data || !data.ok) throw new Error(data?.status?.message || data?.error || 'upload failed');
-    const st=data.status||{};
-    setOnlineStatusText(st.uploaded_at?`${st.message} (${st.uploaded_at})`:st.message);
-  }catch(e){
-    setOnlineStatusText('온라인 업로드 실패: '+String(e.message||e), true);
-  }
-}
-function initOnlineSettings(){
-  const saveBtn=document.getElementById('onlineConfigSaveBtn');
-  const uploadBtn=document.getElementById('onlineUploadNowBtn');
-  if(saveBtn) saveBtn.onclick=(e)=>{e.preventDefault(); saveOnlineSettings();};
-  if(uploadBtn) uploadBtn.onclick=(e)=>{e.preventDefault(); uploadOnlineNow();};
-  loadOnlineSettings();
-}
-
-
 /* Theme loader: minimal, external CSS only. Does not change app layout code. */
 const THEME_STORAGE_KEY='sandsu_selected_theme_css_v1';
 function sanitizeThemeFileName(name){
@@ -7723,59 +7522,6 @@ async function initThemeSystem(){
   applyThemeFile(saved);
 }
 
-
-let lastRemoteSyncRevision = null;
-let remoteSyncApplying = false;
-
-async function applyRemoteServerState(){
-  if(remoteSyncApplying || isDirty) return;
-  remoteSyncApplying=true;
-  try{
-    const res=await fetch('/api/load?ts='+Date.now(),{cache:'no-store'});
-    const data=await res.json();
-    if(!data || !data.ok || !data.data) return;
-    const currentView=getCurrentViewState();
-    const incoming=cloneData(data.data);
-    if(incoming && typeof incoming==='object') delete incoming.__viewState;
-    const merged=normalizeParsed(incoming);
-    if(currentView.activeClassId && merged.classes.some(c=>c.id===currentView.activeClassId)) merged.activeClassId=currentView.activeClassId;
-    if(currentView.selectedBookId!==undefined) merged.selectedBookId=currentView.selectedBookId;
-    if(currentView.pdfMemory && typeof currentView.pdfMemory==='object') merged.pdfMemory={...merged.pdfMemory,...normalizePdfMemoryMap(currentView.pdfMemory)};
-    state=merged;
-    selectedLookupMonth=currentView.selectedLookupMonth||selectedLookupMonth;
-    selectedMessageMonth=currentView.selectedMessageMonth||selectedMessageMonth;
-    selectedMessageStudentId=currentView.selectedMessageStudentId||selectedMessageStudentId;
-    selectedExamYear=currentView.selectedExamYear||selectedExamYear;
-    selectedMakeupTabId=currentView.selectedMakeupTabId||selectedMakeupTabId;
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(makePersistPayload()));
-    localStorage.setItem(BACKUP_KEY,JSON.stringify(makePersistPayload()));
-    persistViewState();
-    await renderAll();
-    const now=new Date();
-    updateSaveStatus(`온라인 반영 ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`,'auto');
-  }catch(e){
-    console.warn('온라인 변경 반영 실패',e);
-  }finally{
-    remoteSyncApplying=false;
-  }
-}
-
-async function checkRemoteSyncState(){
-  try{
-    const res=await fetch('/api/remote-sync-state?ts='+Date.now(),{cache:'no-store'});
-    const data=await res.json();
-    if(!data || !data.ok) return;
-    const revision=Number(data.revision||0);
-    if(lastRemoteSyncRevision===null){ lastRemoteSyncRevision=revision; return; }
-    if(revision>lastRemoteSyncRevision){
-      lastRemoteSyncRevision=revision;
-      if(isDirty){ setTimeout(checkRemoteSyncState,500); return; }
-      await applyRemoteServerState();
-    }
-  }catch(e){}
-}
-
-initOnlineSettings();
 initThemeSystem();
 renderMainTabs();
 bindEvents();
@@ -7789,9 +7535,6 @@ initPdfFolderHandle().then(()=>{
   saveBackupOnly();
   updateSaveStatus('자동저장 대기','auto');
 });
-setInterval(checkRemoteSyncState,2000);
-checkRemoteSyncState();
-
 setInterval(()=>{
   handleDateRollover();
   if(getActivePanelId()==='messagePanel' && document.activeElement && document.activeElement.closest && document.activeElement.closest('#messageTableWrap')){

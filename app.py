@@ -464,7 +464,7 @@ window.SANDSU_TENANT = {json.dumps(tenant)};
             return
 
         if clean_path.strip('/') in TENANTS:
-            self._send_html_for_tenant(clean_path.strip('/'))
+            self._send_online_html_for_tenant(clean_path.strip('/'))
             return
 
         # Tenant APIs: /api/yeop/load, /api/yeom/load, /api/yeong/load
