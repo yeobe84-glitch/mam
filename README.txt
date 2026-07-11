@@ -1,11 +1,12 @@
-수앤수 학생 온라인 버전 v1
+수앤수 학생 온라인 버전 v2 (사용자 분리)
 
-1. GitHub 새 저장소에 이 폴더 내부 파일 전체 업로드
-2. Render에서 New + > Blueprint 선택
-3. 저장소 연결 후 APP_PASSWORD 입력
-4. 배포 완료 후 생성 주소 접속
+접속 주소
+- /yeop : 제공한 academy_data.json을 변환한 초기 데이터
+- /yeom : 별도 빈 데이터
+- /yeong : 별도 빈 데이터
 
-주의
-- Render 영구 디스크가 없는 요금제에서는 재배포 시 데이터가 초기화될 수 있습니다.
-- render.yaml의 disk 설정을 사용할 수 있는 플랜으로 배포하거나 외부 DB를 연결하십시오.
-- 기본 비밀번호는 서버 환경변수가 없을 때 1234입니다. 실제 배포에서는 APP_PASSWORD를 반드시 지정하십시오.
+각 주소는 서로 다른 서버 JSON 파일에 저장되므로 데이터가 섞이지 않습니다.
+기본 비밀번호: 1234 (Render 환경변수 APP_PASSWORD로 변경 가능)
+
+Render Persistent Disk 사용 시 Mount Path를 /opt/render/project/src/data 로 설정하고
+환경변수 DATA_DIR=/opt/render/project/src/data 를 지정하세요.

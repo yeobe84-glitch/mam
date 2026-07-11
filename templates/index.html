@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>수앤수 - 학생</title>
+<title>수앤수 - {{ user }}</title>
 <style>
 :root{--bg:#f4f7fb;--card:#fff;--line:#dbe3ea;--text:#0f172a;--muted:#64748b;--primary:#2563eb;--primary2:#1d4ed8;--primary-soft:#eff6ff;--success:#16a34a;--warn:#d97706;--danger:#dc2626;--shadow:0 8px 24px rgba(15,23,42,.06);--radius:16px}
 *{box-sizing:border-box}html,body{height:100%}body{margin:0;font-family:"Segoe UI","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:var(--bg);color:var(--text);overflow:hidden}button,input,textarea,select{font:inherit}.app{height:100vh;padding:10px 12px;display:flex;flex-direction:column;gap:8px}.toolbar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:8px 10px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);flex:0 0 auto}.toolbar-center{grid-column:2;display:flex;align-items:center;justify-content:center;gap:8px}.toolbar-right{grid-column:3;display:flex;align-items:center;justify-content:flex-end;gap:8px}.select{height:34px;border:1px solid var(--line);border-radius:10px;padding:0 10px;background:#fff;min-width:110px}.btn{height:32px;border-radius:10px;border:1px solid var(--line);background:#fff;padding:0 11px;font-size:12px;font-weight:800;cursor:pointer}.btn.primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn.success{background:var(--success);color:#fff;border-color:var(--success)}.meta{font-size:12px;color:var(--muted);white-space:nowrap}.student-card{flex:1;min-height:0;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:12px;display:flex;flex-direction:column;gap:10px}.student-head{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--primary-soft);border:1px solid #cfe0ff;border-radius:15px;padding:10px 12px;flex:0 0 auto}.kicker{font-size:11px;font-weight:800;color:var(--primary2);margin-bottom:3px}.student-name{font-size:22px;font-weight:900;letter-spacing:-.03em}.score{min-width:84px;background:#fff;border:1px solid #cfe0ff;border-radius:12px;padding:7px 9px;text-align:center}.score span{display:block;font-size:10px;color:var(--muted);font-weight:800}.score b{font-size:17px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;flex:1;min-height:0}.col{min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px}.box{background:#fff;border:1px solid var(--line);border-radius:15px;padding:10px;min-height:0}.box>label,.box-title{display:block;font-size:12px;font-weight:900;color:#334155;margin-bottom:7px}.attendance{flex:1;display:flex;flex-direction:column;overflow:hidden}.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.weekday{height:18px;border-radius:6px;background:#f1f5f9;color:#64748b;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}.day{min-height:72px;border:1px solid #e5e7eb;border-radius:8px;background:#fff;padding:6px 5px;display:flex;flex-direction:column}.day.blank{border-color:transparent;background:transparent}.day.has{background:#f8fbff;border-color:#bfdbfe}.day.absent{background:#fef2f2;border-color:#fecaca}.day.homework{background:#fff7ed;border-color:#fed7aa}.day.off{background:#e5e7eb;border-color:#cbd5e1}.date{font-size:12px;font-weight:900}.daytext{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;font-size:11px;line-height:1.25;font-weight:800;white-space:pre-line}.summary{margin-top:auto;padding:16px 8px;min-height:68px;font-size:17px;font-weight:900;display:flex;justify-content:center;gap:18px;align-items:center;background:#f8fbff;border:1px solid #dbeafe;border-radius:12px}.memos{flex:1;display:flex;flex-direction:column;overflow:hidden}.memo-list{flex:1;min-height:0;overflow:auto;display:flex;flex-direction:column;gap:6px}.memo-item{display:grid;grid-template-columns:44px minmax(0,1fr) 26px 26px;gap:5px;align-items:center;border:1px solid #edf2f7;border-radius:10px;background:#fbfdff;padding:6px}.memo-item.pinned{background:#fff8e8;border-color:#f1d8a8}.memo-date{font-size:11px;font-weight:900;color:var(--primary)}.memo-content{font-size:12px;line-height:1.25;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.icon{width:24px;height:24px;border:0;border-radius:7px;background:transparent;color:#64748b;cursor:pointer}.icon:hover{background:#f1f5f9}.compose{flex:0 0 auto}.stack{display:flex;flex-direction:column;gap:6px}.input,.textarea{width:100%;border:1px solid var(--line);border-radius:11px;background:#fff;padding:8px 10px;font-size:12px}.input{height:34px}.textarea{resize:none;line-height:1.45}.sms{flex:1;display:flex;flex-direction:column}.sms .textarea{flex:1;min-height:120px}.compose-actions{display:flex;justify-content:flex-end;margin-top:8px}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:7px}.status-draft{background:#fef3c7!important;border-color:#fcd34d!important;color:#92400e!important;font-weight:800}.status-sent{background:#dcfce7!important;border-color:#86efac!important;color:#166534!important;font-weight:800}.floating{position:fixed;right:0;top:45%;transform:translateY(-50%);z-index:10;border-radius:12px 0 0 12px;background:#dc2626;color:#fff;border:1px solid #b91c1c;padding:14px 8px;writing-mode:vertical-rl;font-weight:900;cursor:pointer}.drawer{position:fixed;right:0;top:0;width:min(430px,92vw);height:100vh;background:#fff;border-left:1px solid var(--line);z-index:20;display:flex;flex-direction:column;transform:translateX(105%);transition:.22s;box-shadow:-18px 0 40px rgba(15,23,42,.16)}.drawer.show{transform:translateX(0)}.drawer-head{height:52px;padding:0 12px 0 16px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,var(--primary-soft),#fff);border-bottom:1px solid var(--line);font-weight:900}.drawer-body{flex:1;min-height:0;overflow:auto;padding:12px;background:var(--bg);display:flex;flex-direction:column;gap:10px}.section{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px}.section h3{font-size:13px;margin:0 0 8px}.todo-add{display:grid;grid-template-columns:1fr auto;gap:6px}.todo-add textarea{grid-column:1/2;min-height:52px}.todo-add button{grid-column:2/3;grid-row:1/3}.todo-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}.todo{display:grid;grid-template-columns:20px minmax(0,1fr) 72px 24px;gap:7px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:7px 8px;background:#fff}.todo.done{opacity:.55;text-decoration:line-through}.todo small{color:var(--primary);font-weight:900}.pad{width:100%;height:180px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fffef8;resize:vertical}.empty{padding:16px;text-align:center;color:#94a3b8;font-size:12px}@media(max-width:1100px){.grid{grid-template-columns:1fr 1fr}.col:last-child{grid-column:1/3}.app{overflow:auto}body{overflow:auto}.student-card{min-height:900px}}@media(max-width:720px){.grid{grid-template-columns:1fr}.col:last-child{grid-column:auto}.toolbar{grid-template-columns:1fr}.toolbar-center,.toolbar-right{grid-column:1}.toolbar-center{flex-wrap:wrap}.toolbar-right{justify-content:center}.student-card{min-height:1500px}}
@@ -40,8 +40,10 @@
 <button class="floating" id="memoBtn">메모</button>
 <aside class="drawer" id="drawer"><div class="drawer-head"><span>메모 · 할 일</span><button class="btn" id="closeDrawer">닫기</button></div><div class="drawer-body"><div class="section"><h3>할 일 추가</h3><div class="todo-add"><input id="todoDate" class="input" type="date"><textarea id="todoText" class="textarea" placeholder="할 일"></textarea><button class="btn primary" id="addTodo">추가</button></div></div><div class="section"><h3>할 일 목록</h3><div class="todo-list" id="todoList"></div></div><div class="section"><h3>자유 메모</h3><textarea id="pad" class="pad"></textarea></div></div></aside>
 <script>
-const KEY='sandsu_student_online_cache_v1';
-let authToken=localStorage.getItem('sandsu_online_token')||'';
+const USER={{ user|tojson }};
+const BASE=`/${USER}`;
+const KEY=`sandsu_student_online_cache_${USER}_v2`;
+let authToken=localStorage.getItem(`sandsu_online_token_${USER}`)||'';
 let saveTimer=null;
 let saving=false;
 let pendingSave=false;
@@ -57,7 +59,7 @@ async function api(path,options={}){
   if(res.status===401){
     const token=prompt('온라인 프로그램 비밀번호를 입력하세요.');
     if(token===null)throw new Error('로그인이 취소되었습니다.');
-    authToken=token.trim();localStorage.setItem('sandsu_online_token',authToken);
+    authToken=token.trim();localStorage.setItem(`sandsu_online_token_${USER}`,authToken);
     return api(path,options);
   }
   if(!res.ok)throw new Error((await res.text())||`HTTP ${res.status}`);
@@ -65,7 +67,7 @@ async function api(path,options={}){
 }
 async function loadRemote(){
   try{
-    const result=await api('/api/data');
+    const result=await api(`${BASE}/api/data`);
     db=Object.assign(structuredClone(seed),result.data||{});
     localStorage.setItem(KEY,JSON.stringify(db));
     setSync('서버 동기화됨');
@@ -84,7 +86,7 @@ async function pushSave(){
   if(saving){pendingSave=true;return}
   saving=true;pendingSave=false;
   try{
-    await api('/api/data',{method:'POST',body:JSON.stringify({data:db})});
+    await api(`${BASE}/api/data`,{method:'POST',body:JSON.stringify({data:db})});
     setSync('서버 저장됨');saveBtn.textContent='저장됨';
     setTimeout(()=>saveBtn.textContent='저장',700);
   }catch(err){setSync('서버 저장 실패',true);saveBtn.textContent='다시 저장';console.error(err)}
