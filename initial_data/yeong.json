@@ -1,6 +1,23 @@
 {
+  "version": 0,
+  "updated_at": "",
+  "activeClassId": "",
+  "selectedBookId": "",
   "classes": [],
-  "records": {},
+  "books": [],
+  "attendance": {},
+  "pdfMemory": {},
+  "monthlyExams": {},
+  "monthlyMessages": {},
+  "checkbusTeacherName": "",
+  "quickMemoPad": "",
+  "examPlanner": {},
+  "attendanceRanges": [],
+  "examSchedules": {},
+  "lastGradePromotionYear": "",
   "todos": [],
-  "pad": ""
+  "studentMemos": [],
+  "classMemos": {},
+  "studentQuickMemos": {},
+  "__viewState": {}
 }
