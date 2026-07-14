@@ -48,6 +48,9 @@ let authToken=localStorage.getItem(`sandsu_online_token_${USER}`)||'';
 let saveTimer=null;
 let saving=false;
 let pendingSave=false;
+let currentVersion=0;
+let currentUpdatedAt='';
+const REMOTE_POLL_MS=5000;
 const seed={classes:[{id:'c1',name:'초등',students:[{id:'s1',name:'김학생'},{id:'s2',name:'이학생'}]},{id:'c2',name:'중등',students:[{id:'s3',name:'박학생'}]}],records:{},todos:[],pad:''};
 let db=structuredClone(seed),month=new Date().getMonth()+1,year=new Date().getFullYear(),classId='',studentId='';
 
@@ -78,6 +81,8 @@ async function loadRemote(){
       remote=result.data||{};
     }
     db=Object.assign(structuredClone(seed),remote);
+    currentVersion=Number(result.version||0);
+    currentUpdatedAt=String(result.updated_at||'');
     if(!Array.isArray(db.classes) || !db.classes.length)throw new Error('서버 데이터에 반 목록이 없습니다.');
     localStorage.setItem(KEY,JSON.stringify(db));
     const count=db.classes.reduce((n,c)=>n+(c.students||[]).length,0);
@@ -91,14 +96,18 @@ async function loadRemote(){
 function save(){
   localStorage.setItem(KEY,JSON.stringify(db));
   document.getElementById('saveBtn').textContent='저장 중';
-  setSync('저장 대기');
-  clearTimeout(saveTimer);saveTimer=setTimeout(pushSave,250);
+  setSync('저장 중');
+  clearTimeout(saveTimer);
+  saveTimer=null;
+  pushSave();
 }
 async function pushSave(){
   if(saving){pendingSave=true;return}
   saving=true;pendingSave=false;
   try{
-    await api(`${BASE}/api/data`,{method:'POST',body:JSON.stringify({data:db})});
+    const result=await api(`${BASE}/api/data`,{method:'POST',body:JSON.stringify({data:db})});
+    currentVersion=Number(result.version||currentVersion);
+    currentUpdatedAt=String(result.updated_at||currentUpdatedAt);
     setSync('서버 저장됨');saveBtn.textContent='저장됨';
     setTimeout(()=>saveBtn.textContent='저장',700);
   }catch(err){setSync('서버 저장 실패',true);saveBtn.textContent='다시 저장';console.error(err)}
@@ -155,8 +164,36 @@ addTodo.onclick=addQuickMemo;
 todoText.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();addQuickMemo()}});
 toggleDoneTodos.onclick=()=>{toggleDoneTodos.dataset.showDone=toggleDoneTodos.dataset.showDone==='1'?'0':'1';renderTodos()};
 todoList.onclick=e=>{if(e.target.dataset.check!==undefined)db.todos[e.target.dataset.check].done=e.target.checked;else if(e.target.dataset.tdel!==undefined)db.todos.splice(e.target.dataset.tdel,1);else return;save();renderTodos()};
-saveBtn.onclick=()=>{clearTimeout(saveTimer);pushSave()};
-async function start(){await loadRemote();initSelectors();initMonths();renderTodos();pad.value=db.pad||'';render()}
+saveBtn.onclick=()=>{clearTimeout(saveTimer);saveTimer=null;pushSave()};
+async function pollRemoteMeta(){
+  if(saving||pendingSave||saveTimer)return;
+  try{
+    const result=await api(`/api/${USER}/meta?ts=${Date.now()}`);
+    const meta=result.meta||{};
+    const remoteVersion=Number(meta.version||0);
+    if(remoteVersion<=currentVersion)return;
+    const keepClass=classId,keepStudent=studentId;
+    await loadRemote();
+    if(db.classes.some(c=>c.id===keepClass)){
+      classId=keepClass;
+      const c=db.classes.find(c=>c.id===classId);
+      studentId=(c?.students||[]).some(s=>s.id===keepStudent)?keepStudent:(c?.students?.[0]?.id||'');
+    }
+    initSelectors();
+    renderTodos();
+    pad.value=db.pad||'';
+    render();
+    setSync('온라인 변경 반영됨');
+  }catch(err){
+    setSync(`자동 확인 실패: ${err.message}`,true);
+    console.error(err);
+  }
+}
+async function start(){
+  await loadRemote();
+  initSelectors();initMonths();renderTodos();pad.value=db.pad||'';render();
+  setInterval(pollRemoteMeta,REMOTE_POLL_MS);
+}
 start();
 </script>
 </body>

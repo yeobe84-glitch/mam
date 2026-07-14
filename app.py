@@ -404,8 +404,14 @@ def get_view_data(user):
     if not authorized():
         return jsonify(error="unauthorized"), 401
     with lock:
-        data = raw_to_view(read_raw(user))
-    return jsonify(data=data, user=user)
+        raw = read_raw(user)
+        data = raw_to_view(raw)
+    return jsonify(
+        data=data,
+        user=user,
+        version=int(raw.get("version") or 0),
+        updated_at=raw.get("updated_at", ""),
+    )
 
 
 @app.post("/<user>/api/data")
