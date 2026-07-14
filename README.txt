@@ -12,3 +12,9 @@
 
 GitHub 저장소 루트에 ZIP 내용을 전부 덮어쓴 뒤 Render에서 Manual Deploy > Clear build cache & deploy를 실행하세요.
 기본 비밀번호: 1234
+
+v10 deletion sync fix:
+- Online-editable datasets now use full-state replacement semantics.
+- Add/update/delete/clear/order changes propagate for attendance, student memos,
+  progress, comments, messages, todos, and quick memo.
+- UI and 5-second meta polling are unchanged.

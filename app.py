@@ -273,102 +273,156 @@ def iso_now():
 
 
 def merge_view_into_raw(raw, view):
+    """Replace every online-editable dataset with the state sent by the UI.
+
+    The previous implementation merged individual entries. That preserved items
+    omitted by the client and therefore could resurrect deletions. This function
+    treats the UI payload as the complete current state for active students while
+    preserving fields and records that are outside the online student's scope.
+    """
     merged = copy.deepcopy(raw)
     classes = merged.get("classes") or []
     student_class = {}
+    active_student_ids = set()
     for c in classes:
         if not isinstance(c, dict):
             continue
-        for s in c.get("students") or []:
-            if isinstance(s, dict):
-                student_class[s.get("id")] = c.get("id")
+        class_id = c.get("id")
+        for student in c.get("students") or []:
+            if not isinstance(student, dict):
+                continue
+            student_id = student.get("id")
+            if not student_id:
+                continue
+            student_class[student_id] = class_id
+            if not student.get("deletedAt"):
+                active_student_ids.add(student_id)
 
-    # 화면에서 바뀌는 월별 진도/코멘트/문자만 원본 monthlyMessages에 병합한다.
-    mm = merged.setdefault("monthlyMessages", {})
     records = view.get("records") or {}
-    for key, r in records.items():
+    if not isinstance(records, dict):
+        records = {}
+
+    # 1) Monthly progress/comments/message/status.
+    # Clear all online-managed fields for active students first, then write the
+    # complete state received from the UI. Unknown local-only fields are kept.
+    monthly = merged.setdefault("monthlyMessages", {})
+    for class_id, student_map in list(monthly.items()):
+        if not isinstance(student_map, dict):
+            continue
+        for student_id, month_map in list(student_map.items()):
+            if student_id not in active_student_ids or not isinstance(month_map, dict):
+                continue
+            for month_key, target in list(month_map.items()):
+                if not isinstance(target, dict):
+                    continue
+                target["progress"] = ""
+                target["comments"] = ["", "", "", "", ""]
+                target["message"] = ""
+                target["messageStatus"] = ""
+                target["sentDone"] = False
+
+    for key, record_value in records.items():
         student_id, month_key = parse_record_key(key)
         class_id = student_class.get(student_id)
-        if not class_id or not isinstance(r, dict):
+        if student_id not in active_student_ids or not class_id or not isinstance(record_value, dict):
             continue
-        target = mm.setdefault(class_id, {}).setdefault(student_id, {}).setdefault(month_key, {})
-        target["progress"] = r.get("progress", "")
-        target["comments"] = (list(r.get("comments") or []) + ["", "", "", "", ""])[:5]
-        target["message"] = r.get("message", "")
-        status = r.get("status", "")
+        target = monthly.setdefault(class_id, {}).setdefault(student_id, {}).setdefault(month_key, {})
+        target["progress"] = record_value.get("progress", "")
+        target["comments"] = (list(record_value.get("comments") or []) + ["", "", "", "", ""])[:5]
+        target["message"] = record_value.get("message", "")
+        status = record_value.get("status", "")
         target["messageStatus"] = status
         target["sentDone"] = status == "sent"
 
-    # 학생 메모는 화면에 전달된 전체 목록을 기준으로 해당 월 데이터만 동기화한다.
-    old_memos = merged.get("studentMemos") or []
-    touched = set()
-    new_memos = []
-    for key, r in records.items():
+    # 2) Student memos. Replace the complete memo set for active students.
+    # Memos belonging to withdrawn/unknown students remain untouched.
+    preserved_memos = []
+    for memo in merged.get("studentMemos") or []:
+        if isinstance(memo, dict) and memo.get("studentId") not in active_student_ids:
+            preserved_memos.append(memo)
+
+    replacement_memos = []
+    for key, record_value in records.items():
         student_id, month_key = parse_record_key(key)
         class_id = student_class.get(student_id)
-        if class_id and isinstance(r, dict):
-            touched.add((student_id, month_key))
-    for memo in old_memos:
-        if not isinstance(memo, dict):
+        if student_id not in active_student_ids or not class_id or not isinstance(record_value, dict):
             continue
-        pair = (memo.get("studentId"), str(memo.get("date") or "")[:7])
-        if pair not in touched:
-            new_memos.append(memo)
-    for key, r in records.items():
-        student_id, month_key = parse_record_key(key)
-        class_id = student_class.get(student_id)
-        if not class_id or not isinstance(r, dict):
-            continue
-        for idx, memo in enumerate(r.get("memos") or []):
+        for index, memo in enumerate(record_value.get("memos") or []):
             if not isinstance(memo, dict):
                 continue
-            short = str(memo.get("date") or "")
+            short_date = str(memo.get("date") or "")
             try:
-                m, d = [int(x) for x in short.split("/")[:2]]
-                date = f"{month_key[:4]}-{m:02d}-{d:02d}"
+                month_number, day_number = [int(x) for x in short_date.split("/")[:2]]
+                date_value = f"{month_key[:4]}-{month_number:02d}-{day_number:02d}"
             except Exception:
-                date = f"{month_key}-01"
-            new_memos.append({
-                "id": memo.get("id") or f"memo_online_{student_id}_{month_key}_{idx}_{int(time.time()*1000)}",
-                "classId": class_id, "studentId": student_id, "date": date,
+                date_value = f"{month_key}-01"
+            replacement_memos.append({
+                "id": memo.get("id") or f"memo_online_{student_id}_{month_key}_{index}_{int(time.time()*1000)}",
+                "classId": class_id,
+                "studentId": student_id,
+                "date": date_value,
                 "createdAt": memo.get("createdAt") or iso_now(),
-                "pinned": bool(memo.get("pinned")), "content": memo.get("text", ""),
+                "pinned": bool(memo.get("pinned")),
+                "content": memo.get("text", ""),
             })
-    merged["studentMemos"] = new_memos
+    merged["studentMemos"] = preserved_memos + replacement_memos
 
-    # 출결은 touched 월만 병합하며 원본의 기타 필드는 보존한다.
+    # 3) Attendance. Remove every active student's current attendance state,
+    # then rebuild it from the UI payload. This makes unchecked/deleted dates
+    # disappear instead of being kept by a merge.
     attendance = merged.setdefault("attendance", {})
-    for key, r in records.items():
+    for date_key, class_map in list(attendance.items()):
+        if not isinstance(class_map, dict):
+            continue
+        for class_id, student_map in list(class_map.items()):
+            if not isinstance(student_map, dict):
+                continue
+            for student_id in list(student_map.keys()):
+                if student_id in active_student_ids:
+                    del student_map[student_id]
+            if not student_map:
+                del class_map[class_id]
+        if not class_map:
+            del attendance[date_key]
+
+    for key, record_value in records.items():
         student_id, month_key = parse_record_key(key)
         class_id = student_class.get(student_id)
-        if not class_id or not isinstance(r, dict):
+        if student_id not in active_student_ids or not class_id or not isinstance(record_value, dict):
             continue
-        for day_text, val in (r.get("attendance") or {}).items():
-            if not isinstance(val, dict):
+        for day_text, attendance_value in (record_value.get("attendance") or {}).items():
+            if not isinstance(attendance_value, dict):
                 continue
             try:
                 date_key = f"{month_key}-{int(day_text):02d}"
             except Exception:
                 continue
-            old = attendance.setdefault(date_key, {}).setdefault(class_id, {}).get(student_id, {})
-            item = dict(old) if isinstance(old, dict) else {}
-            item["absent"] = bool(val.get("absent"))
-            item["homeworkMissing"] = bool(val.get("homework"))
-            item["off"] = bool(val.get("off"))
-            text = str(val.get("text") or "").strip()
+            text = str(attendance_value.get("text") or "").strip()
+            item = {
+                "absent": bool(attendance_value.get("absent")),
+                "homeworkMissing": bool(attendance_value.get("homework")),
+                "off": bool(attendance_value.get("off")),
+                "lateAcknowledged": False,
+            }
             if item["absent"]:
                 item["checkedAt"] = None
-            elif text and not item.get("checkedAt"):
+            elif text:
                 hhmm = text if len(text) == 5 and text[2] == ":" else "00:00"
                 item["checkedAt"] = f"{date_key}T{hhmm}:00"
-            attendance[date_key][class_id][student_id] = item
+            else:
+                item["checkedAt"] = None
+            attendance.setdefault(date_key, {}).setdefault(class_id, {})[student_id] = item
 
+    # 4) Todos and free memo are complete replacement datasets.
     merged["todos"] = [{
-        "id": t.get("id") or f"todo_online_{i}_{int(time.time()*1000)}",
-        "content": t.get("text", ""), "dueDate": t.get("date", ""),
-        "completed": bool(t.get("done")), "createdAt": t.get("createdAt") or iso_now(),
-    } for i, t in enumerate(view.get("todos") or []) if isinstance(t, dict)]
-    merged["quickMemoPad"] = view.get("pad", merged.get("quickMemoPad", ""))
+        "id": todo.get("id") or f"todo_online_{index}_{int(time.time()*1000)}",
+        "content": todo.get("text", ""),
+        "dueDate": todo.get("date", ""),
+        "completed": bool(todo.get("done")),
+        "createdAt": todo.get("createdAt") or iso_now(),
+    } for index, todo in enumerate(view.get("todos") or []) if isinstance(todo, dict)]
+    merged["quickMemoPad"] = view.get("pad", "")
+
     if view.get("activeClassId"):
         merged["activeClassId"] = view["activeClassId"]
     return merged
