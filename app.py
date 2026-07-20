@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, render_template, request, redirect
 from pathlib import Path
 from datetime import datetime
-import copy, json, os, tempfile, threading, time
+import copy, json, os, tempfile, threading, time, urllib.request
 
 app = Flask(__name__)
 BASE_DIR = Path(__file__).resolve().parent
@@ -9,6 +9,47 @@ INITIAL_DIR = BASE_DIR / "initial_data"
 APP_PASSWORD = os.environ.get("APP_PASSWORD", "1234")
 USERS = {"yeop", "yeom", "yeong"}
 lock = threading.Lock()
+
+DRIVE_API_URL = os.environ.get("DRIVE_API_URL", "https://script.google.com/macros/s/AKfycbyQQLYZ42a-3Uwyvtx_gSOgA11uIGTiygDY1sV4WyUfd-f9YgRKSf9tvXN6cZBNKs27vw/exec").strip()
+
+def drive_request(user, payload=None):
+    if user not in USERS:
+        raise RuntimeError("잘못된 사용자")
+    url = DRIVE_API_URL
+    if payload is None:
+        url += ("&" if "?" in url else "?") + "teacher=" + user + "&ts=" + str(int(time.time() * 1000))
+    data = None
+    headers = {}
+    method = "GET"
+    if payload is not None:
+        data = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        headers["Content-Type"] = "application/json;charset=UTF-8"
+        method = "POST"
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    with urllib.request.urlopen(req, timeout=20) as res:
+        body = res.read().decode("utf-8", errors="replace")
+    result = json.loads(body or "{}")
+    if not isinstance(result, dict) or result.get("ok") is False:
+        raise RuntimeError(str(result))
+    return result
+
+def drive_read_raw(user):
+    result = drive_request(user)
+    data = result.get("data")
+    if not isinstance(data, dict):
+        raise RuntimeError("Google Drive 데이터 형식 오류")
+    return data
+
+def drive_write_raw(user, data, source):
+    payload = copy.deepcopy(data) if isinstance(data, dict) else blank_raw()
+    payload["__sandsuSync"] = {
+        "source": source,
+        "revision": str(time.time_ns()),
+        "saved_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    drive_request(user, {"teacher": user, "data": payload})
+    return payload
+
 
 
 def choose_data_dir():
@@ -116,6 +157,13 @@ def ensure_user_data(user):
 
 
 def read_raw(user):
+    try:
+        data = drive_read_raw(user)
+        if isinstance(data, dict) and is_raw_format(data):
+            atomic_write(data_file(user), data)
+            return data
+    except Exception:
+        pass
     p = ensure_user_data(user)
     try:
         data = json.loads(p.read_text(encoding="utf-8"))
@@ -132,14 +180,14 @@ def next_metadata(data, current=None):
     return data
 
 
-def write_raw(user, data, bump=True):
+def write_raw(user, data, bump=True, source="local"):
     payload = copy.deepcopy(data) if isinstance(data, dict) else blank_raw()
     current = read_raw(user) if bump else None
     if bump:
         next_metadata(payload, current)
+    payload = drive_write_raw(user, payload, source)
     atomic_write(data_file(user), payload)
     return payload
-
 
 
 
@@ -446,7 +494,7 @@ def save_view_data(user):
     with lock:
         current = read_raw(user)
         merged = merge_view_into_raw(current, body["data"])
-        saved = write_raw(user, merged, bump=True)
+        saved = write_raw(user, merged, bump=True, source="online")
         signal = bump_remote_signal(user)
     return jsonify(ok=True, user=user, version=saved.get("version"), updated_at=saved.get("updated_at"), signal=signal, saved_at=int(time.time()))
 
@@ -473,7 +521,7 @@ def compat_save(user):
     if not isinstance(payload, dict):
         return jsonify(ok=False, error="invalid data"), 400
     with lock:
-        saved = write_raw(user, payload, bump=True)
+        saved = write_raw(user, payload, bump=True, source="local")
     return jsonify(ok=True, tenant=user, version=saved.get("version"), updated_at=saved.get("updated_at"))
 
 
@@ -483,7 +531,11 @@ def remote_signal(user):
         return jsonify(ok=False, error="not found"), 404
     if not authorized():
         return jsonify(ok=False, error="unauthorized"), 401
-    return jsonify(ok=True, tenant=user, signal=read_remote_signal(user))
+    
+    raw = read_raw(user)
+    marker = raw.get("__sandsuSync") if isinstance(raw, dict) else {}
+    revision = str((marker or {}).get("revision") or "") if (marker or {}).get("source") == "online" else ""
+    return jsonify(ok=True, tenant=user, signal=revision)
 
 
 @app.get("/api/<user>/meta")

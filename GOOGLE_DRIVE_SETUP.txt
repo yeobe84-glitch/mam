@@ -1,0 +1,13 @@
+[필수] Apps Script Code.gs 교체 및 재배포
+
+1. Apps Script 프로젝트의 Code.gs 내용을 이 ZIP의 Code.gs 내용으로 전부 교체합니다.
+2. 저장합니다.
+3. 배포 > 배포 관리 > 연필(수정) > 버전: 새 버전 > 배포합니다.
+4. 기존 /exec 주소는 그대로 사용합니다.
+
+Google Drive 수앤수데이터 폴더에 다음 파일이 사용자별로 생성됩니다.
+- yeop.json
+- yeom.json
+- yeong.json
+
+기존 academy_data.json이 있으면 yeop.json 최초 생성 시 그 내용을 자동 복사합니다.
