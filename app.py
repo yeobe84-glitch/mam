@@ -141,6 +141,26 @@ def write_raw(user, data, bump=True):
     return payload
 
 
+
+
+def signal_file(user):
+    return DATA_DIR / f"{user}.remote_signal.json"
+
+
+def read_remote_signal(user):
+    p = signal_file(user)
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        return int(data.get("signal") or 0) if isinstance(data, dict) else 0
+    except Exception:
+        return 0
+
+
+def bump_remote_signal(user):
+    value = read_remote_signal(user) + 1
+    atomic_write(signal_file(user), {"signal": value, "updated_at": datetime.now().isoformat(timespec="seconds")})
+    return value
+
 def active_classes(raw):
     result = []
     for c in raw.get("classes") or []:
@@ -427,7 +447,8 @@ def save_view_data(user):
         current = read_raw(user)
         merged = merge_view_into_raw(current, body["data"])
         saved = write_raw(user, merged, bump=True)
-    return jsonify(ok=True, user=user, version=saved.get("version"), updated_at=saved.get("updated_at"), saved_at=int(time.time()))
+        signal = bump_remote_signal(user)
+    return jsonify(ok=True, user=user, version=saved.get("version"), updated_at=saved.get("updated_at"), signal=signal, saved_at=int(time.time()))
 
 
 # 로컬 프로그램과 기존 정상 온라인 버전이 사용하던 공용 원본 API.
@@ -454,6 +475,15 @@ def compat_save(user):
     with lock:
         saved = write_raw(user, payload, bump=True)
     return jsonify(ok=True, tenant=user, version=saved.get("version"), updated_at=saved.get("updated_at"))
+
+
+@app.get("/api/<user>/remote-signal")
+def remote_signal(user):
+    if user not in USERS:
+        return jsonify(ok=False, error="not found"), 404
+    if not authorized():
+        return jsonify(ok=False, error="unauthorized"), 401
+    return jsonify(ok=True, tenant=user, signal=read_remote_signal(user))
 
 
 @app.get("/api/<user>/meta")
