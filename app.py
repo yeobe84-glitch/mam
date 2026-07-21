@@ -305,6 +305,31 @@ def raw_to_view(raw):
                     status = "sent"
                 r["status"] = status
 
+    # 월말평가와 학기별 4개 고사 점수는 온라인 학생 화면에 표시만 한다.
+    special_keys = ("S1M", "S1F", "S2M", "S2F")
+    for class_id, student_map in (raw.get("monthlyExams") or {}).items():
+        if not isinstance(student_map, dict):
+            continue
+        for student_id, exam_map in student_map.items():
+            if student_id not in valid_students or not isinstance(exam_map, dict):
+                continue
+            special_by_year = {}
+            for exam_key, value in exam_map.items():
+                if not isinstance(exam_key, str):
+                    continue
+                scores = value.get("scores") if isinstance(value, dict) else value
+                scores = list(scores) if isinstance(scores, list) else []
+                latest = next((score for score in reversed(scores) if score != "" and score is not None), "")
+                if len(exam_key) == 7 and exam_key[4] == "-" and exam_key[5:7].isdigit():
+                    record(student_id, exam_key)["score"] = latest
+                    continue
+                if len(exam_key) == 8 and exam_key[4] == "-" and exam_key[5:] in special_keys:
+                    special_by_year.setdefault(exam_key[:4], {})[exam_key[5:]] = latest
+            for exam_year, year_scores in special_by_year.items():
+                values = [year_scores.get(key, "") for key in special_keys]
+                for exam_month in range(1, 13):
+                    record(student_id, f"{exam_year}-{exam_month:02d}")["examScores"] = values
+
     todos = []
     for t in raw.get("todos") or []:
         if not isinstance(t, dict):
