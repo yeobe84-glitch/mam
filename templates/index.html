@@ -61,7 +61,7 @@ let pendingSave=false;
 let currentVersion=0;
 let currentUpdatedAt='';
 let dirty=false;
-const REMOTE_POLL_MS=2000;
+const REMOTE_POLL_MS=10000;
 const seed={classes:[{id:'c1',name:'초등',students:[{id:'s1',name:'김학생'},{id:'s2',name:'이학생'}]},{id:'c2',name:'중등',students:[{id:'s3',name:'박학생'}]}],records:{},todos:[],pad:''};
 let db=structuredClone(seed),month=new Date().getMonth()+1,year=new Date().getFullYear(),classId='',studentId='';
 
@@ -203,6 +203,18 @@ async function pollRemoteMeta(){
   }catch(err){setSync(`자동 확인 실패: ${err.message}`,true);console.error(err)}
 }
 async function start(){
+  const cached=cacheLoad();
+  if(Array.isArray(cached.classes)&&cached.classes.length){
+    db=cached;
+    classId=(db.classes.find(c=>c.id===db.activeClassId)?.id)||db.classes[0]?.id||'';
+    studentId=db.classes.find(c=>c.id===classId)?.students?.[0]?.id||'';
+    initSelectors();
+    initMonths();
+    renderTodos();
+    pad.value=db.pad||'';
+    render();
+    setSync('최신 데이터 확인 중');
+  }
   await loadRemote();
   initSelectors();
   initMonths();
