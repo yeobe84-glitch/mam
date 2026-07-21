@@ -184,7 +184,14 @@ async function pollRemoteMeta(){
     setSync('로컬 최신 저장본 반영됨');
   }catch(err){setSync(`자동 확인 실패: ${err.message}`,true);console.error(err)}
 }
-setInterval(pollRemoteMeta,REMOTE_POLL_MS);
+async function start(){
+  await loadRemote();
+  initSelectors();
+  initMonths();
+  renderTodos();
+  pad.value=db.pad||'';
+  render();
+  setInterval(pollRemoteMeta,REMOTE_POLL_MS);
 }
 start();
 </script>
